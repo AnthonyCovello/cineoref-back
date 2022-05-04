@@ -1,0 +1,1 @@
+sqitch -u postgres revert db:pg:cinoref
