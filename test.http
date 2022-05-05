@@ -1,0 +1,10 @@
+POST http://localhost:3000/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"J.P l'agitateur",
+    "email": "lagitateurpz@gmail.com",
+    "birthday": "21/06/1978", 
+    "password": "molotov"
+
+}
