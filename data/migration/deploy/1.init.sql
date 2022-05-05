@@ -9,9 +9,10 @@ CREATE TABLE IF NOT EXISTS public."user"
     username text NOT NULL,
     email text NOT NULL,
     birthday date NOT NULL,
+    password text NOT NULL,
     role_id int NOT NULL DEFAULT 1,
     grade_id int NOT NULL DEFAULT 1,
-    profile_picture text NOT NULL DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971396538528051210/unknown.png',
+    profile_picture text DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971396538528051210/unknown.png',
     created_at timestamp NOT NULL DEFAULT now(),
     updated_at timestamp NOT NULL DEFAULT now()
 );
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS public."show"
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title text NOT NULL,
     category text NOT NULL,
-    picture text NOT NULL DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971401469557354576/unknown.png',
+    picture text DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971401469557354576/unknown.png',
     created_at timestamp NOT NULL DEFAULT now(),
     updated_at timestamp NOT NULL DEFAULT now()
 );
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS public."reference"
     user_id int NOT NULL,
     show_id int NOT NULL,
     mature BOOLEAN NOT NULL,
-    status BOOLEAN NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT false,
     created_at timestamp NOT NULL DEFAULT now(),
     updated_at timestamp NOT NULL DEFAULT now()
 );
