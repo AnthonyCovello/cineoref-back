@@ -9,10 +9,12 @@ const showController = require('../controllers/showController');
 const routerWrapper = require("../handlers/routerWrapper");
 const handleError = require('../handlers/errorHandler.js');
 const security = require("../handlers/security");
-
+const jwt = require('jsonwebtoken');
+const secretKey = "clef pour déchiffrer le message";
 
 router 
     .post('/signup', routerWrapper(userController.createUser))
+    .post('/login', routerWrapper(userController.logUser))
     .post('/show', routerWrapper(showController.createShow) )
     .post('/devonly/createArtist', routerWrapper(showController.createArtist))
     .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))

@@ -36,7 +36,7 @@ const controller = {
       // je prépare mon envoi
       const data = jwt.sign(user, secretKey);
       console.log(data);
-      const result = await fetch("http://localhost:3001/login",{
+      const result = await fetch("http://localhost:3000/login",{
         method:"POST",
         body:JSON.stringify({data}),
         headers: {'Content-Type': 'application/json'}
