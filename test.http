@@ -8,3 +8,12 @@ Content-Type: application/json
     "password": "molotov"
 
 }
+###
+
+POST http://localhost:3000/show/submit HTTP/1.1
+Content-Type: application/json
+
+
+###
+
+GET http://localhost:3000/list/show HTTP/1.1
