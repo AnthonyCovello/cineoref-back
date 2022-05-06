@@ -1,0 +1,1 @@
+sqitch -u postgres revert 2.uptadev2 db:pg:cinoref
