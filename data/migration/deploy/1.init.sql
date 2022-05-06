@@ -17,8 +17,6 @@ CREATE TABLE IF NOT EXISTS public."user"
     updated_at timestamp NOT NULL DEFAULT now()
 );
 
-
-
 CREATE TABLE IF NOT EXISTS public."show"
 (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -28,6 +26,43 @@ CREATE TABLE IF NOT EXISTS public."show"
     created_at timestamp NOT NULL DEFAULT now(),
     updated_at timestamp NOT NULL DEFAULT now()
 );
+
+-- CREATE TABLE IF NOT EXISTS public."film"
+-- (
+--     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--     title text NOT NULL,
+--     category text NOT NULL DEFAULT film,
+--     picture text DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971401469557354576/unknown.png',
+--     created_at timestamp NOT NULL DEFAULT now(),
+--     updated_at timestamp NOT NULL DEFAULT now()
+-- );
+-- CREATE TABLE IF NOT EXISTS public."serie"
+-- (
+--     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--     title text NOT NULL,
+--     category text NOT NULL DEFAULT serie,
+--     picture text DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971401469557354576/unknown.png',
+--     created_at timestamp NOT NULL DEFAULT now(),
+--     updated_at timestamp NOT NULL DEFAULT now()
+-- );
+-- CREATE TABLE IF NOT EXISTS public."cartoon"
+-- (
+--     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--     title text NOT NULL,
+--     category text NOT NULL DEFAULT cartoon,
+--     picture text DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971401469557354576/unknown.png',
+--     created_at timestamp NOT NULL DEFAULT now(),
+--     updated_at timestamp NOT NULL DEFAULT now()
+-- );
+-- CREATE TABLE IF NOT EXISTS public."anime"
+-- (
+--     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--     title text NOT NULL,
+--     category text NOT NULL DEFAULT anime,
+--     picture text DEFAULT 'https://cdn.discordapp.com/attachments/269211667626196992/971401469557354576/unknown.png',
+--     created_at timestamp NOT NULL DEFAULT now(),
+--     updated_at timestamp NOT NULL DEFAULT now()
+-- );
 
 
 

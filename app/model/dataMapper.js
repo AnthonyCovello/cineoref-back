@@ -23,8 +23,8 @@ const datamapper = {
     
   
 
-    async createCharacter(char) {
-      console.log(char);
+    async createCharacter(character) {
+      console.log(character);
       const query = {
         text: `INSERT INTO "character" (name) VALUES ($1);`,
         values: [character.name]
@@ -47,24 +47,41 @@ const datamapper = {
    async createShow(show) {
       console.log(show);
       const query = {
-        text: `INSERT INTO "show" (title, category) VALUES ($1, $2);`,
-        values: [show.title, show.category]
+        text: `INSERT INTO "show" (name, category) VALUES ($1, $2);`,
+        values: [show.name, show.category]
        };
        const newShow = await client.query(query);
         return newShow;
     },
 
     async getByCategory(params) {
-        const table = params.substring(1);
-        console.log(table);
+        const temp_param = params.substring(1);
+        console.log(temp_param);
         const query = {
-          text: `SELECT * FROM ${table};`
+          text: `SELECT * 
+          FROM show
+          WHERE show.category ='` + temp_param + `'
+                           `
         }
-        console.log(query);
+      console.log(query);
       const result = await client.query(query);
       console.log(result.rows);
       return result.rows
-    }
+    },
+
+    async getByArtistChar(params) {
+      const temp_param = params.substring(1);
+      console.log(temp_param);
+      const query = {
+        text: `SELECT * 
+        FROM ${temp_param}
+                         `
+      }
+    console.log(query);
+    const result = await client.query(query);
+    console.log(result.rows);
+    return result.rows
+  },
 
 }
 

@@ -14,7 +14,11 @@ const security = require("../handlers/security");
 router 
     .post('/signup', routerWrapper(userController.createUser))
     .post('/show', routerWrapper(showController.createShow) )
-    .get('/list/:params', routerWrapper(showController.getByCategory))
+    .post('/devonly/createArtist', routerWrapper(showController.createArtist))
+    .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))
+    .get('/listcategory/:params', routerWrapper(showController.getByCategory))
+    .get('/listpeople/:params', routerWrapper(showController.getByArtistChar))
     .use(handleError);
+    
 
 module.exports = router;
