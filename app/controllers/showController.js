@@ -34,19 +34,7 @@ const controller = {
         res.send(result)
     },
     
-    async getByCategory(req,res,next) {
-        const categories = req.params.params;
-        console.log(categories);
-        const result = await dataMapper.getByCategory(categories);
-        res.json(result);
-    },
-
-    async getByArtistChar(req,res,next) {
-        const categories = req.params.params;
-        console.log(categories);
-        const result = await dataMapper.getByArtistChar(categories);
-        res.json(result);
-    }
+    
 };
 
 module.exports = controller;

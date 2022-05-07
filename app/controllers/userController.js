@@ -3,6 +3,7 @@ const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
 
 const jwt = require('jsonwebtoken');
+const datamapper = require('../model/dataMapper.js');
 
 const controller = {
 
@@ -48,6 +49,12 @@ const controller = {
       req.session.user = result.rows[0];
       //console.log("session",req.session.user)
       res.redirect('/watch');
+    },
+
+    async getUserById(req,res) {
+        const id = req.params.id;
+        const result = await datamapper.getUserById(id);
+        res.json(result);
     },
 
 

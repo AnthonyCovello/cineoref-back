@@ -69,19 +69,61 @@ const datamapper = {
       return result.rows
     },
 
-    async getByArtistChar(params) {
-      const temp_param = params.substring(1);
-      console.log(temp_param);
+    async getByCharacter() {
       const query = {
         text: `SELECT * 
-        FROM ${temp_param}
+        FROM character
                          `
       }
-    console.log(query);
     const result = await client.query(query);
     console.log(result.rows);
     return result.rows
   },
+
+  async getByArtist() {
+    const query = {
+      text: `SELECT * 
+      FROM "artist"
+                       `
+    }
+  const result = await client.query(query);
+  console.log(result.rows);
+  return result.rows
+},
+
+async getUserById(id) {
+  const user_id = id.substring(1);
+  console.log(id);
+  const query = {
+    text : `SELECT * FROM "user" WHERE id = ${user_id}`
+  }
+  const result = await client.query(query);
+  console.log(result.rows[0]);
+  return result.rows[0]
+},
+
+async getUsers() {
+  const query = {
+    text : `SELECT public.user.id, username, created_at, role.name AS role, grade.name AS grade FROM "user"
+    JOIN "grade"
+    ON grade.id = public.user.grade_id
+    JOIN "role"
+    ON role.id = public.user.role_id
+    ;`
+  }
+  const result = await client.query(query);
+  console.log(result.rows);
+  return result.rows
+},
+
+async getRequest(){
+  const query = {
+    text : `SELECT * FROM reference WHERE status = 'false'`
+  }
+  const result = await client.query(query);
+  console.log(result.rows);
+  return result.rows
+},
 
 }
 
