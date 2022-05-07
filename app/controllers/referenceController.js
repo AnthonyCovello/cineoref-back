@@ -6,6 +6,62 @@ const jwt = require('jsonwebtoken');
 
 const controller = {
 
+    async submitRef (req,res, next) {
+        const ref = req.body;
+       // -------- CHECK if exists, if not : create it ---------- //
+      const checkShow = await dataMapper.checkShowExist(ref)
+      const checkedShow = Object.keys(checkShow)
+      if(checkedShow != '0'){
+          console.log("Adding Show");
+        const createShow = await dataMapper.createShow(ref)
+        }         
+
+      const checkCharacter = await dataMapper.checkCharacterExist(ref)
+      const checkedCharacter = Object.keys(checkCharacter)
+      if(checkedCharacter != '0'){
+          console.log("Adding Character");
+        const createArtist = await dataMapper.createCharacter(ref)
+      } 
+
+      const checkArtist = await dataMapper.checkArtistExist(ref)
+        const checkedArtist = Object.keys(checkArtist)
+        if(checkedArtist != '0'){
+            console.log("Adding Artist");
+          const createArtist = await dataMapper.createArtist(ref)
+        } 
+
+        // -------- SUBMIT the ref ---------- //
+
+        const showId = await dataMapper.checkShowExist(ref)
+                const show_id = {};
+                for(let i = 0; i<showId.length; i++){
+                    show_id['show_id_'+i] = showId[i];
+                }
+                const filtered_showId = show_id.show_id_0
+                const param_showId = filtered_showId.id
+        const characterId = await dataMapper.checkCharacterExist(ref)
+                const character_id = {};
+                for(let i = 0; i<characterId.length; i++){
+                    character_id['character_id_'+i] = characterId[i];
+                }
+                const filtered_characterId = character_id.character_id_0
+                const param_characterId = filtered_characterId.id
+        const artistId = await dataMapper.checkArtistExist(ref)
+                const artist_id = {};
+                for(let i = 0; i<artistId.length; i++){
+                    artist_id['artist_id_'+i] = artistId[i];
+                }
+                const filtered_artistId = artist_id.artist_id_0
+                const param_artistId = filtered_artistId.id
+        // ----- need to catch the user ID through session ----- //
+        const userId = 8
+        const reference = ref.reference
+
+        const submitRef = await dataMapper.createRef({reference, userId, param_showId, param_artistId, param_characterId})
+        res.json(submitRef)
+    },
+
+
 };
 
 module.exports = controller;

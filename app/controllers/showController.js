@@ -33,20 +33,23 @@ const controller = {
         };
         res.send(result)
     },
-    
-    async getByCategory(req,res,next) {
-        const categories = req.params.params;
-        console.log(categories);
-        const result = await dataMapper.getByCategory(categories);
-        res.json(result);
-    },
 
-    async getByArtistChar(req,res,next) {
-        const categories = req.params.params;
-        console.log(categories);
-        const result = await dataMapper.getByArtistChar(categories);
-        res.json(result);
-    }
+      // ----------- TEST DEV ------------- //
+
+    async checkShow (req,res, next) {
+      const ref = req.body;
+      const checkShow = await dataMapper.checkShowExist(ref)
+      console.log(Object.keys(checkShow));
+      const checked = Object.keys(checkShow)
+      if(checked != '0'){
+        const createShow = await dataMapper.createShow(ref)
+        return createShow;
+      } 
+      console.log(checkShow)
+      res.send("Done")
+  },
+    
+    
 };
 
 module.exports = controller;
