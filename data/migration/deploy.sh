@@ -1,1 +1,1 @@
-sqitch -u postgres deploy 2.uptadev2 db:pg:cinoref
+sqitch -u postgres deploy db:pg:cinoref

@@ -2,6 +2,8 @@ const client = require('./dbClient.js');
 
 const datamapper = {
     
+// ------------- USER ----------
+
     async createUser(user) {
         console.log(user);
         const query = {
@@ -20,38 +22,114 @@ const datamapper = {
       const userInDB = await client.query(query);
       return userInDB;
     },
+
+    async getUserById(id) {
+      const user_id = id.substring(1);
+      console.log(id);
+      const query = {
+        text : `SELECT * FROM "user" WHERE id = ${user_id}`
+      }
+      const result = await client.query(query);
+      console.log(result.rows[0]);
+      return result.rows[0]
+    },
     
-  
+    async getUsers() {
+      const query = {
+        text : `SELECT public.user.id, username, created_at, role.name AS role, grade.name AS grade FROM "user"
+        JOIN "grade"
+        ON grade.id = public.user.grade_id
+        JOIN "role"
+        ON role.id = public.user.role_id
+        ;`
+      }
+      const result = await client.query(query);
+      console.log(result.rows);
+      return result.rows
+    },
+    
+  // --------------- CHARACTER ----------
 
     async createCharacter(character) {
-      console.log(character);
       const query = {
         text: `INSERT INTO "character" (name) VALUES ($1);`,
-        values: [character.name]
+        values: [character.character]
        };
        const newCharacter = await client.query(query);
         return newCharacter;
     },
 
+    async getByCharacter() {
+      const query = {
+        text: `SELECT * 
+        FROM character
+                         `
+      }
+    const result = await client.query(query);
+    console.log(result.rows);
+    return result.rows
+  },
+
+  async checkCharacterExist(ref) {
+      const name = ref.character
+      const query = {
+        text: `SELECT id FROM character WHERE name ='` + name + `';`
+      };
+      const checkCharacter = await client.query(query);
+      return checkCharacter.rows;
+    }, 
+
+   // --------------- ARTIST ----------
+
     async createArtist(artist) {
-      console.log(artist);
       const query = {
         text: `INSERT INTO "artist" (name) VALUES ($1);`,
-        values: [artist.name]
+        values: [artist.artist]
        };
        const newArtist = await client.query(query);
         return newArtist;
     },
 
+    async getByArtist() {
+      const query = {
+        text: `SELECT * 
+        FROM "artist"
+                         `
+      }
+    const result = await client.query(query);
+    console.log(result.rows);
+    return result.rows
+  },
+
+  async checkArtistExist(ref) {
+      const name = ref.artist
+      const query = {
+        text: `SELECT id FROM artist WHERE name ='` + name + `';`
+      };
+      const checkArtist = await client.query(query);
+      return checkArtist.rows;
+    }, 
   
+
+    // --------------- SHOW ----------
+
    async createShow(show) {
-      console.log(show);
       const query = {
         text: `INSERT INTO "show" (name, category) VALUES ($1, $2);`,
-        values: [show.name, show.category]
+        values: [show.title, show.category]
        };
        const newShow = await client.query(query);
         return newShow;
+    },
+
+    async checkShowExist(ref) {
+      const name = ref.title
+      const category = ref.category
+      const query = {
+        text: `SELECT id FROM show WHERE name ='` + name + `' AND category ='`+ category +`';`
+      };
+      const checkShow = await client.query(query);
+      return checkShow.rows;
     },
 
     async getByCategory(params) {
@@ -69,61 +147,35 @@ const datamapper = {
       return result.rows
     },
 
-    async getByCharacter() {
+  
+    // --------------- REFERENCE ----------
+    
+    async getRequest(){
       const query = {
-        text: `SELECT * 
-        FROM character
-                         `
+        text : `SELECT * FROM reference WHERE status = 'false'`
       }
-    const result = await client.query(query);
-    console.log(result.rows);
-    return result.rows
-  },
+      const result = await client.query(query);
+      console.log(result.rows);
+      return result.rows
+    },
 
-  async getByArtist() {
-    const query = {
-      text: `SELECT * 
-      FROM "artist"
-                       `
-    }
-  const result = await client.query(query);
-  console.log(result.rows);
-  return result.rows
-},
+    async createRef(param) {
+        console.log(param);
+        console.log([param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]);
+        const query = {
+          text : `INSERT INTO reference (ref, user_id, show_id, artist_id, character_id) 
+          VALUES ($1, $2, $3, $4, $5);`,
+          values : [param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]          
+        }
+        const newRef = await client.query(query)
+        console.log(newRef.rows);
+        return newRef
+    },
+  
 
-async getUserById(id) {
-  const user_id = id.substring(1);
-  console.log(id);
-  const query = {
-    text : `SELECT * FROM "user" WHERE id = ${user_id}`
-  }
-  const result = await client.query(query);
-  console.log(result.rows[0]);
-  return result.rows[0]
-},
 
-async getUsers() {
-  const query = {
-    text : `SELECT public.user.id, username, created_at, role.name AS role, grade.name AS grade FROM "user"
-    JOIN "grade"
-    ON grade.id = public.user.grade_id
-    JOIN "role"
-    ON role.id = public.user.role_id
-    ;`
-  }
-  const result = await client.query(query);
-  console.log(result.rows);
-  return result.rows
-},
 
-async getRequest(){
-  const query = {
-    text : `SELECT * FROM reference WHERE status = 'false'`
-  }
-  const result = await client.query(query);
-  console.log(result.rows);
-  return result.rows
-},
+
 
 }
 

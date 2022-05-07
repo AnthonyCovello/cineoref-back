@@ -33,6 +33,21 @@ const controller = {
         };
         res.send(result)
     },
+
+      // ----------- TEST DEV ------------- //
+
+    async checkShow (req,res, next) {
+      const ref = req.body;
+      const checkShow = await dataMapper.checkShowExist(ref)
+      console.log(Object.keys(checkShow));
+      const checked = Object.keys(checkShow)
+      if(checked != '0'){
+        const createShow = await dataMapper.createShow(ref)
+        return createShow;
+      } 
+      console.log(checkShow)
+      res.send("Done")
+  },
     
     
 };
