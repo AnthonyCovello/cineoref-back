@@ -79,6 +79,26 @@ const datamapper = {
       return checkCharacter.rows;
     }, 
 
+    async checkCharacterListExist(IDs) {
+      const characterId = IDs.param_characterId
+      const showId = IDs.param_showId
+      const query = {
+        text: `SELECT id FROM character_list WHERE character_id ='` + characterId + `' AND show_id ='` + showId + `';`
+      }
+      const checkCharacterListExist = await client.query(query)
+      return checkCharacterListExist.rows;
+    },
+  
+    async createJoinCharacterShow(IDs) {
+      const query = {
+        text : `INSERT INTO character_list (show_id, character_id) 
+                   VALUES ($1, $2);`,
+        values : [IDs.param_showId, IDs.param_characterId]
+      }
+      const createJoinCharacterShow = await client.query(query)
+      return createJoinCharacterShow
+    },
+
    // --------------- ARTIST ----------
 
     async createArtist(artist) {
@@ -97,7 +117,6 @@ const datamapper = {
                          `
       }
     const result = await client.query(query);
-    console.log(result.rows);
     return result.rows
   },
 
@@ -109,6 +128,26 @@ const datamapper = {
       const checkArtist = await client.query(query);
       return checkArtist.rows;
     }, 
+  
+  async checkArtistListExist(IDs) {
+    const artistId = IDs.param_artistId
+    const showId = IDs.param_showId
+    const query = {
+      text: `SELECT id FROM artist_list WHERE artist_id ='` + artistId + `' AND show_id ='` + showId + `';`
+    }
+    const checkArtistListExist = await client.query(query)
+    return checkArtistListExist.rows;
+  },
+
+  async createJoinArtistShow(IDs) {
+    const query = {
+      text : `INSERT INTO artist_list (show_id, artist_id) 
+                 VALUES ($1, $2);`,
+      values : [IDs.param_showId, IDs.param_artistId]
+    }
+    const createJoinArtistShow = await client.query(query)
+    return createJoinArtistShow
+  },
   
 
     // --------------- SHOW ----------
