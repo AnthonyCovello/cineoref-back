@@ -13,17 +13,20 @@ const security = require("../handlers/security");
 router 
     .post('/signup', routerWrapper(userController.createUser))
     .post('/login', routerWrapper(userController.logUser))
-    .post('/devonly/show', routerWrapper(showController.createShow) )
-    .post('/devonly/createArtist', routerWrapper(showController.createArtist))
-    .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))
+    // .post('/devonly/show', routerWrapper(showController.createShow) )
+    // .post('/devonly/createArtist', routerWrapper(showController.createArtist))
+    // .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))
     .post('/form/submit', routerWrapper(referenceController.submitRef))
-    .get('/devonly/checkshow', routerWrapper(showController.checkShow))
-    .get('/devonly/checkartist', routerWrapper(listController.checkArtist))
+    // .get('/devonly/checkshow', routerWrapper(showController.checkShow))
+    // .get('/devonly/checkartist', routerWrapper(listController.checkArtist))
     .get('/listcategory/:params', routerWrapper(listController.getByCategory))
+    .get('/listcategory/:params/ref', routerWrapper(referenceController.getByCategory))
     .get('/listartist', routerWrapper(listController.getByArtist))
+    .get('/listartist/:params', routerWrapper(referenceController.getByArtist))
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
+    .get('/listcharacter/:params', routerWrapper(referenceController.getByCharacter))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
-    .get('/admin/dashboard', routerWrapper(adminController.getAdminDashboard))
+    .get('/admin/dashboard', security.check, routerWrapper(adminController.getAdminDashboard))
     //route Put  to validate reference request
 
     
