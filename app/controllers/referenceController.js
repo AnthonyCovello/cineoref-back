@@ -8,7 +8,7 @@ const controller = {
 
     async submitRef (req,res, next) {
         const ref = req.body;
-       // -------- CHECK if exists, if not : create it ---------- //
+       // -------- CHECK if {value} exists, if not : create it ---------- //
       const checkShow = await dataMapper.checkShowExist(ref)
       const checkedShow = Object.keys(checkShow)
       if(checkedShow != '0'){
@@ -30,7 +30,7 @@ const controller = {
           const createArtist = await dataMapper.createArtist(ref)
         } 
 
-        // -------- SUBMIT the ref ---------- //
+        // -------- DECLARE and FILTER variables/parameters ---------- //
 
         const showId = await dataMapper.checkShowExist(ref)
                 const show_id = {};
@@ -57,10 +57,27 @@ const controller = {
         const userId = 8
         const reference = ref.reference
 
+        // ---- CHECK or INSERT the ids INTO join tables ---- //
+        const checkArtistList = await dataMapper.checkArtistListExist({param_artistId, param_showId})
+        const checkedArtistList = Object.keys(checkArtistList)
+        if (checkedArtistList != '0') {
+            console.log("Adding to join table Artist");
+            const createJoinArtistShow = await dataMapper.createJoinArtistShow({param_artistId, param_showId})
+        }
+
+        const checkCharacterList = await dataMapper.checkCharacterListExist({param_characterId, param_showId})
+        const checkedCharacterList = Object.keys(checkCharacterList)
+        if (checkedCharacterList != '0') {
+            console.log("Adding to join table Character");
+            const createJoinCharacterShow = await dataMapper.createJoinCharacterShow({param_characterId, param_showId})
+        }
+
+         // -------- SUBMIT the ref ---------- //
+
         const submitRef = await dataMapper.createRef({reference, userId, param_showId, param_artistId, param_characterId})
         res.json(submitRef)
     },
-
+    
 
 };
 
