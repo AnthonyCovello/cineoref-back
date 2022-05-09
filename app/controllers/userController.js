@@ -56,7 +56,7 @@ const controller = {
         res.json({ 
           logged: true, 
           pseudo: user.username,
-          token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+          token: jwt.sign(jwtContent, jwtSecret, jwtOptions),
         });
       }
       
