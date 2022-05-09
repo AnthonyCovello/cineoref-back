@@ -5,3 +5,4 @@
 2.uptadev2 2022-05-06T07:03:21Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # update on tables show artist character
 3.updatev3 2022-05-07T14:17:03Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # Adding column artist_id + character_id in table reference
 4.updatev4 2022-05-07T22:01:42Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # adding default to column mature from ref
+5.updatev5 2022-05-09T13:06:32Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # adding default to column mature from ref
