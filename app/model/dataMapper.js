@@ -63,7 +63,7 @@ const datamapper = {
       const query = {
         text: `SELECT * 
         FROM character
-                         `
+        ORDER BY character.name`
       }
     const result = await client.query(query);
     console.log(result.rows);
@@ -114,7 +114,7 @@ const datamapper = {
       const query = {
         text: `SELECT * 
         FROM "artist"
-                         `
+        ORDER BY artist.name`
       }
     const result = await client.query(query);
     return result.rows
@@ -178,7 +178,7 @@ const datamapper = {
           text: `SELECT * 
           FROM show
           WHERE show.category ='` + temp_param + `'
-                           `
+          ORDER BY show.name`
         }
       console.log(query);
       const result = await client.query(query);
@@ -191,7 +191,17 @@ const datamapper = {
     
     async getRequest(){
       const query = {
-        text : `SELECT * FROM reference WHERE status = 'false'`
+        text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+        FROM public.reference
+        JOIN public.show
+        on reference.show_id = show.id
+        JOIN public.artist
+        on reference.artist_id = artist.id
+        JOIN public.character
+        on reference.character_id = public.character.id
+		    JOIN public.user
+		    on reference.user_id = public.user.id
+		    WHERE status = 'false'`
       }
       const result = await client.query(query);
       console.log(result.rows);
@@ -214,7 +224,7 @@ const datamapper = {
      
       const temp_param = param.substring(1);
       const query = {
-        text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist
+        text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
         FROM public.reference
         JOIN public.show
         on reference.show_id = show.id
@@ -222,7 +232,8 @@ const datamapper = {
         on reference.artist_id = artist.id
         JOIN public.character
         on reference.character_id = public.character.id
-        WHERE show.category ='` + temp_param + `';`
+        WHERE show.category ='` + temp_param + `'
+        AND status = 'true';`
       }
       const result = await client.query(query);
      return result.rows
@@ -232,7 +243,7 @@ const datamapper = {
      
     const temp_param = param.substring(1);
     const query = {
-      text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist
+      text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
       FROM public.reference
       JOIN public.show
       on reference.show_id = show.id
@@ -240,7 +251,8 @@ const datamapper = {
       on reference.artist_id = artist.id
       JOIN public.character
       on reference.character_id = public.character.id
-      WHERE artist.name ='` + temp_param + `';`
+      WHERE artist.name ='` + temp_param + `'
+      AND status = 'true';`
     }
     const result = await client.query(query);
    return result.rows
@@ -250,7 +262,7 @@ const datamapper = {
      
   const temp_param = param.substring(1);
   const query = {
-    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist
+    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
     FROM public.reference
     JOIN public.show
     on reference.show_id = show.id
@@ -258,11 +270,29 @@ const datamapper = {
     on reference.artist_id = artist.id
     JOIN public.character
     on reference.character_id = public.character.id
-    WHERE character.name ='` + temp_param + `';`
+    WHERE character.name ='` + temp_param + `'
+    AND status = 'true';`
   }
   const result = await client.query(query);
  return result.rows
 },
+
+async getRefByRandom(){
+  const query = {
+    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+    FROM public.reference
+    JOIN public.show
+    on reference.show_id = show.id
+    JOIN public.artist
+    on reference.artist_id = artist.id
+    JOIN public.character
+    on reference.character_id = public.character.id
+  ORDER BY random() LIMIT 1
+  AND status = 'true';`
+  }
+  const result = await client.query(query)
+  return result.rows
+}
 
 
 

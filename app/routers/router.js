@@ -26,9 +26,10 @@ router
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
     .get('/listcharacter/:params', routerWrapper(referenceController.getByCharacter))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
+    .get('/random', routerWrapper(referenceController.getByRandom))
     .get('/admin/dashboard', security.check, routerWrapper(adminController.getAdminDashboard))
     //route Put  to validate reference request
-
+    
     
 
 

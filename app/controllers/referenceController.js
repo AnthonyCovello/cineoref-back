@@ -99,6 +99,11 @@ const controller = {
         res.json(result)
     },
 
+    async getByRandom(req, res, next) {
+        const result = await dataMapper.getRefByRandom()
+        res.json(result)
+    }
+
 };
 
 module.exports = controller;
