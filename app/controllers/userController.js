@@ -37,7 +37,7 @@ const controller = {
       // je prépare mon envoi
       const data = jwt.sign(user, secretKey);
       console.log(data);
-      const result = await fetch("http://localhost:3000/login",{
+      const result = await fetch("https://cinoref-api.herokuapp.com/login",{
         method:"POST",
         body:JSON.stringify({data}),
         headers: {'Content-Type': 'application/json'}
@@ -46,8 +46,9 @@ const controller = {
       if(!result.rowCount){
         throw new APIError ("Les credentials sont erronés.");
       };
+      console.log(result.rows[0]);
       req.session.user = result.rows[0];
-      //console.log("session",req.session.user)
+            //console.log("session",req.session.user)
       res.redirect('/watch');
     },
 
