@@ -21,7 +21,7 @@ const controller = {
         if(!result.rowCount){
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base");
         };
-        next();
+        return
       },
 
 /**
