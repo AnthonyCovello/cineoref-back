@@ -78,6 +78,31 @@ const controller = {
         res.json(submitRef)
     },
     
+    async getByCategory(req, res, next) {
+        const categories = req.params.params;
+        console.log(categories);
+        const result = await dataMapper.getRefByCategory(categories)
+        res.json(result)
+    },
+
+    async getByArtist(req, res, next) {
+        const artist = req.params.params;
+        console.log(artist);
+        const result = await dataMapper.getRefByArtist(artist)
+        res.json(result)
+    },
+
+    async getByCharacter(req, res, next) {
+        const character = req.params.params;
+        console.log(character);
+        const result = await dataMapper.getRefByCharacter(character)
+        res.json(result)
+    },
+
+    async getByRandom(req, res, next) {
+        const result = await dataMapper.getRefByRandom()
+        res.json(result)
+    }
 
 };
 
