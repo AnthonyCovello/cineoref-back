@@ -37,6 +37,7 @@ const controller = {
       const jwtToken = jwt.sign(user, secretKey);
         console.log(jwtToken);
       const checkedResult = Object.keys(result)
+      console.log(checkedResult);
         if (checkedResult === '0') {
           const jwtContent = {user_id: user.id};
           const jwtOptions = { 
