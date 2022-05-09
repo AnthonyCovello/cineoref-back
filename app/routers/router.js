@@ -9,10 +9,17 @@ const showController = require('../controllers/showController');
 const routerWrapper = require("../handlers/routerWrapper");
 const handleError = require('../handlers/errorHandler.js');
 const security = require("../handlers/security");
+const jwt = require('jsonwebtoken');
+const secretKey = "clef pour déchiffrer le message";
 
 router 
     .post('/signup', routerWrapper(userController.createUser))
     .post('/login', routerWrapper(userController.logUser))
+    .post('/login/secure', (req,res,next)=>{
+    
+        const decoded = jwt.verify(req.body.data, secretKey);
+        console.log(decoded);
+    })
     // .post('/devonly/show', routerWrapper(showController.createShow) )
     // .post('/devonly/createArtist', routerWrapper(showController.createArtist))
     // .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))
@@ -29,11 +36,6 @@ router
     .get('/random', routerWrapper(referenceController.getByRandom))
     .get('/admin/dashboard', security.check, routerWrapper(adminController.getAdminDashboard))
     //route Put  to validate reference request
-    
-    
-
-
-
     .use(handleError);
     
 

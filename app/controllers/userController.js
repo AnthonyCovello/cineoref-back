@@ -27,29 +27,27 @@ const controller = {
    * Render the login page, passing all compulsory datas
    * @param {req}
    * @param {res}
-   * @returns {EJS page}
    */
     async logUser(req,res) {
       const user = req.body;
-      /*const result = await dataMapper.loginUser(user);*/
-      // on enlève l'appel au dataMapper pour appeler notre serveur de login
+      // const result = await dataMapper.loginUser(user);
     
       // je prépare mon envoi
       const data = jwt.sign(user, secretKey);
       console.log(data);
-      const result = await fetch("https://cinoref-api.herokuapp.com/login",{
+      const result = await fetch("https://cinoref-api.herokuapp.com/login/secure",{
         method:"POST",
         body:JSON.stringify({data}),
         headers: {'Content-Type': 'application/json'}
       });
-    
+      // const decoded = jwt.verify(data, secretKey);
+      // console.log(decoded);
       if(!result.rowCount){
         throw new APIError ("Les credentials sont erronés.");
       };
-      console.log(result.rows[0]);
       req.session.user = result.rows[0];
-            //console.log("session",req.session.user)
-      res.redirect('/watch');
+            console.log("session",req.session.user)
+      res.redirect('/');
     },
 
     async getUserById(req,res) {
