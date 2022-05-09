@@ -2,7 +2,7 @@ const dataMapper = require('../model/dataMapper.js');
 const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
 
-const jwt = require('jsonwebtoken');
+const jwtSecret = require('jsonwebtoken');
 const secretKey = "clef pour déchiffrer le message";
 const datamapper = require('../model/dataMapper.js');
 
@@ -34,22 +34,36 @@ const controller = {
       const result = await dataMapper.loginUser(user);
     
       // je prépare mon envoi
-      const data = jwt.sign(user, secretKey);
-      console.log(data);
+      const jwtToken = jwt.sign(user, secretKey);
+        console.log(jwtToken);
       // const result = await fetch("https://cinoref-api.herokuapp.com/login/secure",{
       //   method:"POST",
       //   body:JSON.stringify({data}),
       //   headers: {'Content-Type': 'application/json'}
       // });
-      const decoded = jwt.verify(data, secretKey);
-      console.log(decoded);
-      if(!result.rowCount){
-        throw new APIError ("Les credentials sont erronés.");
-      };
-      req.session.user = result.rows[0];
-            console.log("session",req.session.user)
+      const decoded = jwt.verify(jwtToken, secretKey);
+        console.log(decoded);
+      // if(!result.rowCount){
+      //   throw new APIError ("Les credentials sont erronés.");
+      // };
+      if (result) {
+        const jwtContent = {user_id: user.id};
+        const jwtOptions = { 
+          algorithm: 'HS256', 
+          expiresIn: '3h' 
+        };
+        console.log('<< 200', user.username);
+        res.json({ 
+          logged: true, 
+          pseudo: user.username,
+          token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+        });
+      }
       
-      res.json(req.session.user );
+      // req.session.user = result.rows[0];
+      //       console.log("session",req.session.user)
+      
+      // res.json(req.session.user );
     },
 
     async getUserById(req,res) {

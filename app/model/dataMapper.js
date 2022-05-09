@@ -16,7 +16,7 @@ const datamapper = {
 
     async loginUser(user) {
       const query = {
-        text: `SELECT username FROM "user" WHERE username = $1 AND password = $2;`,
+        text: `SELECT id, username FROM "user" WHERE username = $1 AND password = $2;`,
         values: [user.username, user.password]
       };
       const userInDB = await client.query(query);
