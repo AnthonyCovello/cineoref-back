@@ -1,6 +1,7 @@
 const dataMapper = require('../model/dataMapper.js');
 const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
+const jwt = require('jsonwebtoken');
 
 const jwtSecret = require('jsonwebtoken');
 const secretKey = "clef pour déchiffrer le message";
@@ -41,17 +42,16 @@ const controller = {
       //   body:JSON.stringify({data}),
       //   headers: {'Content-Type': 'application/json'}
       // });
-      const decoded = jwt.verify(jwtToken, secretKey);
-        console.log(decoded);
+      // console.log(decoded);
       // if(!result.rowCount){
-      //   throw new APIError ("Les credentials sont erronés.");
-      // };
-      if (result) {
-        const jwtContent = {user_id: user.id};
-        const jwtOptions = { 
-          algorithm: 'HS256', 
-          expiresIn: '3h' 
-        };
+        //   throw new APIError ("Les credentials sont erronés.");
+        // };
+        if (result) {
+          const jwtContent = {user_id: user.id};
+          const jwtOptions = { 
+            algorithm: 'HS256', 
+            expiresIn: '3h' 
+          };
         console.log('<< 200', user.username);
         res.json({ 
           logged: true, 
