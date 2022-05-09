@@ -3,7 +3,7 @@ const jwToken = (req, res, next) => {
     {
         if (authHeader) {
             const token = authHeader.split(' ')[1];
-            jwt.verify(token, )
+            jwt.verify(token, secretKey, (err))
         }
     }
 
