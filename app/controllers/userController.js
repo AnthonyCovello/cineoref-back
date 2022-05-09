@@ -20,8 +20,9 @@ const controller = {
         const result = await dataMapper.createUser(user);
         if(!result.rowCount){
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base");
-        };
-        return
+        } else {
+          res.json("Compte créé")
+        }
       },
 
 /**
