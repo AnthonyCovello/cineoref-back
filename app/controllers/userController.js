@@ -48,7 +48,8 @@ const controller = {
       };
       req.session.user = result.rows[0];
             console.log("session",req.session.user)
-      res.json('Logged in');
+      
+      res.json(req.session.user );
     },
 
     async getUserById(req,res) {
