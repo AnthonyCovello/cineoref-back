@@ -3,6 +3,7 @@ const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
 
 const jwt = require('jsonwebtoken');
+const secretKey = "clef pour déchiffrer le message";
 const datamapper = require('../model/dataMapper.js');
 
 const controller = {
@@ -47,7 +48,7 @@ const controller = {
       };
       req.session.user = result.rows[0];
             console.log("session",req.session.user)
-      res.redirect('/');
+      res.json('Logged in');
     },
 
     async getUserById(req,res) {
