@@ -36,17 +36,8 @@ const controller = {
       // je prépare mon envoi
       const jwtToken = jwt.sign(user, secretKey);
         console.log(jwtToken);
-      // const result = await fetch("https://cinoref-api.herokuapp.com/login/secure",{
-      //   method:"POST",
-      //   body:JSON.stringify({data}),
-      //   headers: {'Content-Type': 'application/json'}
-      // });
-      // console.log(decoded);
-      // if(!result.rowCount){
-        //   throw new APIError ("Les credentials sont erronés.");
-        // };
-        const checkedResult = Object.keys(result)
-        if (checkedResult = '0') {
+      const checkedResult = Object.keys(result)
+        if (checkedResult === '0') {
           const jwtContent = {user_id: user.id};
           const jwtOptions = { 
             algorithm: 'HS256', 
