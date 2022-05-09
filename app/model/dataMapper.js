@@ -20,7 +20,7 @@ const datamapper = {
         values: [user.username, user.password]
       };
       const userInDB = await client.query(query);
-      return userInDB;
+      return userInDB.rows;
     },
 
     async getUserById(id) {
