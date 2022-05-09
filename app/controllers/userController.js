@@ -3,8 +3,7 @@ const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
 const jwt = require('jsonwebtoken');
 
-const jwtSecret = require('jsonwebtoken');
-const secretKey = "clef pour déchiffrer le message";
+const secretKey = "mange tes morts";
 const datamapper = require('../model/dataMapper.js');
 
 const controller = {
@@ -56,7 +55,7 @@ const controller = {
         res.json({ 
           logged: true, 
           pseudo: user.username,
-          token: jwt.sign(jwtContent, jwtSecret, jwtOptions),
+          token: jwt.sign(jwtContent, secretKey, jwtOptions),
         });
       }
       
