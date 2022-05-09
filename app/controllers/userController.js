@@ -31,18 +31,18 @@ const controller = {
    */
     async logUser(req,res) {
       const user = req.body;
-      // const result = await dataMapper.loginUser(user);
+      const result = await dataMapper.loginUser(user);
     
       // je prépare mon envoi
       const data = jwt.sign(user, secretKey);
       console.log(data);
-      const result = await fetch("https://cinoref-api.herokuapp.com/login/secure",{
-        method:"POST",
-        body:JSON.stringify({data}),
-        headers: {'Content-Type': 'application/json'}
-      });
-      // const decoded = jwt.verify(data, secretKey);
-      // console.log(decoded);
+      // const result = await fetch("https://cinoref-api.herokuapp.com/login/secure",{
+      //   method:"POST",
+      //   body:JSON.stringify({data}),
+      //   headers: {'Content-Type': 'application/json'}
+      // });
+      const decoded = jwt.verify(data, secretKey);
+      console.log(decoded);
       if(!result.rowCount){
         throw new APIError ("Les credentials sont erronés.");
       };
