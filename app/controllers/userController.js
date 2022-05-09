@@ -38,7 +38,9 @@ const controller = {
         console.log(jwtToken);
       const checkedResult = Object.keys(result)
       console.log(checkedResult);
-        if (checkedResult === '0') {
+        if (checkedResult != '0') {
+          res.sendStatus(403);
+        } else {
           const jwtContent = {user_id: user.id};
           const jwtOptions = { 
             algorithm: 'HS256', 
@@ -49,9 +51,8 @@ const controller = {
           logged: true, 
           pseudo: user.username,
           token: jwt.sign(jwtContent, secretKey, jwtOptions),
+          
         })
-      } else {
-        res.sendStatus(403);
       }
       
       // req.session.user = result.rows[0];
