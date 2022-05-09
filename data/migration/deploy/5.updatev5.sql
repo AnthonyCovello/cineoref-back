@@ -2,6 +2,7 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+ALTER TABLE public.user 
+ADD CONSTRAINT username_unique UNIQUE ("username");
 
 COMMIT;

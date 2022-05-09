@@ -45,7 +45,8 @@ const controller = {
       // if(!result.rowCount){
         //   throw new APIError ("Les credentials sont erronés.");
         // };
-        if (result) {
+        const checkedResult = Object.keys(result)
+        if (checkedResult = '0') {
           const jwtContent = {user_id: user.id};
           const jwtOptions = { 
             algorithm: 'HS256', 
@@ -56,7 +57,9 @@ const controller = {
           logged: true, 
           pseudo: user.username,
           token: jwt.sign(jwtContent, secretKey, jwtOptions),
-        });
+        })
+      } else {
+        res.sendStatus(403);
       }
       
       // req.session.user = result.rows[0];
