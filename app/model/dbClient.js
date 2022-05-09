@@ -11,7 +11,6 @@ const client = new Pool({
         rejectUnauthorized: false,
       },
 });
-console.log(client);
 client.connect();
 
 module.exports = client;
