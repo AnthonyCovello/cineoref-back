@@ -4,8 +4,11 @@ const router = require('./app/routers/router.js');
 const PORT = process.env.PORT || 3333;
 const app = express();
 const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 
 const secretKey = "mange tes morts";
+
+app.use(bodyParser.json());
 
 const session = require('express-session')
 app.use(session({

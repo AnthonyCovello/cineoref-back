@@ -21,6 +21,7 @@
   "dependencies": {
     "apollo-datasource-rest": "^3.5.2",
     "apollo-server": "^3.6.7",
+    "body-parser": "^1.20.0",
     "dataloader": "^2.1.0",
     "datasource-sql": "^2.0.1",
     "dotenv": "^16.0.0",
