@@ -30,6 +30,7 @@ const datamapper = {
         text: `SELECT id, username, password FROM "user" WHERE username ='`+ username +`';`
       };
       const userInDB = await client.query(query);
+      console.log(userInDB.rows);
       return userInDB.rows;
     },
 
