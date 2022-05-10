@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3333;
 const app = express();
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
+
 
 const secretKey = "mange tes morts";
 

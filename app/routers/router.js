@@ -15,11 +15,6 @@ const secretKey = "clef pour déchiffrer le message";
 router 
     .post('/signup', routerWrapper(userController.createUser))
     .post('/login', routerWrapper(userController.logUser))
-    .post('/login/secure', (req,res,next)=>{
-    
-        const decoded = jwt.verify(req.body.data, secretKey);
-        console.log(decoded);
-    })
     // .post('/devonly/show', routerWrapper(showController.createShow) )
     // .post('/devonly/createArtist', routerWrapper(showController.createArtist))
     // .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))

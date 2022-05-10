@@ -17,12 +17,35 @@ const controller = {
     async createUser(req,res, next) {
         // User contient email / username / password
         const user = req.body;
+        const checkUser = await dataMapper.checkUser(user)
+            const checkedUser = Object.keys(checkUser)
+            if (checkedUser != '0'){
+                return res.status(409).send("Pseudo déjà existant")
+            }
         const result = await dataMapper.createUser(user);
-        if(!result.rowCount){
-          throw new APIError ("Impossible d'enregistrer l'utilisateur en base");
-        } else {
-          res.json("Compte créé")
+        if (!(user.username && user.email && user.birthday && user.password)) {
+          res.status(400).send("Tout les champs sont nécessaire");
         }
+        if(!result.rowCount){
+          throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
+        } 
+        const jwtToken = jwt.sign(user, secretKey)
+          console.log(jwtToken);
+        
+        const jwtContent = {user_id: user.id};
+        const jwtOptions = { 
+           algorithm: 'HS256', 
+           expiresIn: '3h' 
+          };
+        
+        
+        res.json({ 
+          logged: true, 
+          pseudo: user.username,
+          token: jwt.sign(jwtContent, secretKey, jwtOptions),
+          
+        })
+        
       },
 
 /**
@@ -40,7 +63,7 @@ const controller = {
       const checkedResult = Object.keys(result)
       console.log(checkedResult);
         if (checkedResult != '0') {
-          res.sendStatus(403);
+          res.sendStatus(401);
         } else {
           const jwtContent = {user_id: user.id};
           const jwtOptions = { 

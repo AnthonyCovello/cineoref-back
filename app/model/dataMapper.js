@@ -47,6 +47,18 @@ const datamapper = {
       console.log(result.rows);
       return result.rows
     },
+
+    async checkUser(user) {
+      const username = user.username
+      const email = user.email
+      const query = {
+        text: `SELECT id FROM "user" WHERE username ='` + username + `';`
+      };
+      const checkUser = await client.query(query);
+      return checkUser.rows;
+    }, 
+      
+    
     
   // --------------- CHARACTER ----------
 
