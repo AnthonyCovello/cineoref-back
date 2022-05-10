@@ -17,6 +17,8 @@ const controller = {
     async createUser(req,res, next) {
         // User contient email / username / password
         const user = req.body;
+        
+       
         const checkUser = await dataMapper.checkUser(user)
             const checkedUser = Object.keys(checkUser)
             if (checkedUser != '0'){
@@ -31,7 +33,9 @@ const controller = {
         if(!result.rowCount){
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
         } 
-        const jwtToken = jwt.sign(user, secretKey)
+
+
+          const jwtToken = jwt.sign(user, secretKey)
           console.log(jwtToken);
         
         const jwtContent = {user_id: user.id};
