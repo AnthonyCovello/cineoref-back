@@ -35,7 +35,7 @@ const controller = {
         } 
 
 
-          const jwtToken = jwt.sign(user, secretKey)
+        const jwtToken = jwt.sign(user, secretKey)
           console.log(jwtToken);
         
         const jwtContent = {user_id: user.id};

@@ -5,11 +5,8 @@ const datamapper = {
 // ------------- USER ----------
 
     async createUser(user) {
-        console.log(user);
         const encrypt = bcrypt.hash(user.password,10)
-        console.log("ici");
-        console.log(encrypt);
-        const query = {
+       const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
           values: [user.username, user.email, user.birthday, encrypt]
         };
