@@ -63,8 +63,8 @@ const controller = {
     async logUser(req,res) {
       const user = req.body;
       const result = await dataMapper.loginUser(user);
-      
-      if (user.username && (await bcrypt.compare(user.password, result.password))){
+      const encrypt = bcrypt.hash(user.password,10)
+      if (user.username && (await bcrypt.compare(encrypt, result.password))){
         
         const jwtToken = jwt.sign(user, secretKey);
             console.log(jwtToken);
