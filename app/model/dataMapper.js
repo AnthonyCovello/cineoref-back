@@ -7,6 +7,7 @@ const datamapper = {
     async createUser(user) {
         console.log(user);
         const encrypt = bcrypt.hash(user.password,10)
+        console.log("ici");
         console.log(encrypt);
         const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
@@ -17,9 +18,10 @@ const datamapper = {
       },
 
     async loginUser(user) {
+      const encrypt = bcrypt.hash(user.password,10)
       const query = {
         text: `SELECT id, username FROM "user" WHERE username = $1 AND password = $2;`,
-        values: [user.username, user.password]
+        values: [user.username, encrypt]
       };
       const userInDB = await client.query(query);
       return userInDB.rows;
