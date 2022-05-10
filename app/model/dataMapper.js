@@ -16,9 +16,9 @@ const datamapper = {
 
     async loginUser(user) {
       const encrypt = bcrypt.hash(user.password,10)
+      const username = user.username
       const query = {
-        text: `SELECT id, username FROM "user" WHERE username = $1 AND password = $2;`,
-        values: [user.username, encrypt]
+        text: `SELECT id, username FROM "user" WHERE username ='`+ username +`' AND password ='`+ encrypt +`;`
       };
       const userInDB = await client.query(query);
       return userInDB.rows;
