@@ -66,12 +66,13 @@ const controller = {
      
       bcrypt.compare(user.password, checkResult.password, function(err, match){
         if (err) {
-          throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
-        } else if (!match) {
           res.status(401).json({
             message :"Pseudo ou mot de passe incorrect"
           })
-        } else if (match) {
+        } 
+        // else if (!match) {
+        // }
+         else if (match) {
         const jwtToken = jwt.sign(user, secretKey);
             console.log(jwtToken);
         const jwtContent = {user_id: user.id};
