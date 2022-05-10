@@ -5,10 +5,18 @@ const datamapper = {
 // ------------- USER ----------
 
     async createUser(user) {
-        const encrypt = bcrypt.hash(user.password,10)
+        const encrypt = bcrypt.hash(user.password,10).then((hash) => {
+          return postUser = {
+            username : user.username,
+            email : user.email,
+            birthday : user.birthday,
+            password : hash
+          }
+        })
+        console.log(postUser);
        const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
-          values: [user.username, user.email, user.birthday, encrypt]
+          values: [postUser.username, postUser.email, postUser.birthday, postUser.password]
         };
         const newUser = await client.query(query);
         return newUser;
