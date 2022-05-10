@@ -63,13 +63,7 @@ const controller = {
     async logUser(req,res) {
       const user = req.body;
       const checkResult = await dataMapper.loginUser(user);
-      const checkedResult = Object.keys(checkResult.username)
-      console.log(checkedResult);
-      if(checkedResult != '0') {
-        res.status(401).json({
-          message :"Pseudo ou mot de passe incorrect"
-        })
-      }
+     
       bcrypt.compare(user.password, checkResult.password, function(err, match){
         if (err) {
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
