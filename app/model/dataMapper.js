@@ -6,13 +6,11 @@ const datamapper = {
 
     async createUser(user) {
         console.log(user);
-        const encryptedPassword = await bcrypt.hash(password, 10);
-        console.log(user.password);
-        const passwordEncrypted = encryptedPassword(user.password);
-        console.log(passwordEncrypted);
+        const encrypt = bcrypt.hash(user.password,10)
+        console.log(encrypt);
         const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
-          values: [user.username, user.email, user.birthday, passwordEncrypted]
+          values: [user.username, user.email, user.birthday, bcrypt.hash(user.password, 10)]
         };
         const newUser = await client.query(query);
         return newUser;
