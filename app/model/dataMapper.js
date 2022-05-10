@@ -31,7 +31,7 @@ const datamapper = {
       };
       const userInDB = await client.query(query);
       console.log(userInDB.rows);
-      return userInDB.rows;
+      return userInDB.rows[0];
     },
 
     async getUserById(id) {
