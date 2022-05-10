@@ -10,7 +10,7 @@ const datamapper = {
         console.log(encrypt);
         const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
-          values: [user.username, user.email, user.birthday, bcrypt.hash(user.password, 10)]
+          values: [user.username, user.email, user.birthday, encrypt]
         };
         const newUser = await client.query(query);
         return newUser;
