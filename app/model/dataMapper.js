@@ -27,7 +27,7 @@ const datamapper = {
       const username = user.username
       
       const query = {
-        text: `SELECT  username FROM "user" WHERE username ='`+ username +`';`
+        text: `SELECT id, username, password FROM "user" WHERE username ='`+ username +`';`
       };
       const userInDB = await client.query(query);
       console.log(userInDB.rows);
