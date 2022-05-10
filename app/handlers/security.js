@@ -1,7 +1,7 @@
 const securityModule = {
     check(req,res,next){
-        console.log("security :",req.session.user);
-        if(req.session.user === 'admin'){
+        console.log("security :",req.token.user);
+        if(req.token.user === 'admin'){
             next();
         }
         else{

@@ -11,11 +11,11 @@ const jwToken = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, secretKey)
         req.user = decoded
-    } catch {
-        
+    } catch (err) {
+        return res.status(401).json("Token invalide")
     }
-
-}
+    return next();
+};
 
 
 

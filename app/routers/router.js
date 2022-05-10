@@ -11,6 +11,8 @@ const handleError = require('../handlers/errorHandler.js');
 const security = require("../handlers/security");
 const jwt = require('jsonwebtoken');
 const secretKey = "clef pour déchiffrer le message";
+const jwToken = require ('../handlers/jwtToken');
+
 
 router 
     .post('/signup', routerWrapper(userController.createUser))
@@ -29,7 +31,7 @@ router
     .get('/listcharacter/:params', routerWrapper(referenceController.getByCharacter))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
     .get('/random', routerWrapper(referenceController.getByRandom))
-    .get('/admin/dashboard', security.check, routerWrapper(adminController.getAdminDashboard))
+    .get('/admin/dashboard', jwToken, security.check, routerWrapper(adminController.getAdminDashboard))
     //route Put  to validate reference request
     .use(handleError);
     
