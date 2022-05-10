@@ -49,6 +49,7 @@ const controller = {
           logged: true, 
           pseudo: user.username,
           token: jwt.sign(jwtContent, secretKey, jwtOptions),
+          message: "Compte créé et connecté"
           
         })
         
