@@ -20,7 +20,9 @@ const controller = {
         const checkUser = await dataMapper.checkUser(user)
             const checkedUser = Object.keys(checkUser)
             if (checkedUser != '0'){
-                return res.status(409).send("Pseudo déjà existant")
+              next()
+            } else {
+              return res.status(409).send("Pseudo déjà existant")
             }
         const result = await dataMapper.createUser(user);
         if (!(user.username && user.email && user.birthday && user.password)) {
