@@ -63,15 +63,15 @@ const controller = {
     async logUser(req,res) {
       const user = req.body;
       const encrypt = bcrypt.hash(user.password,10).then((hash) => {
-        return encrypt = {
+        return encrypted = {
           password : hash
         }
       })
-      console.log(encrypt.password);
+      console.log(encrypted.password);
       const result = await dataMapper.loginUser(user);
       console.log(result.password);
       // const encrypt = bcrypt.hash(user.password,10)
-      if (user.username && (await bcrypt.compare(encrypt.password, result.password))){
+      if (user.username && (await bcrypt.compare(encrypted.password, result.password))){
         
         const jwtToken = jwt.sign(user, secretKey);
             console.log(jwtToken);
