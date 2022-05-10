@@ -25,8 +25,14 @@ const datamapper = {
     async loginUser(user) {
       // const encrypt = bcrypt.hash(user.password,10)
       const username = user.username
+      const encrypt = bcrypt.hash(user.password,10).then((hash) => {
+        return encryptPassword = {
+          password : hash
+        }
+      })
+      console.log(encryptPassword.password);
       const query = {
-        text: `SELECT id, username, password FROM "user" WHERE username ='`+ username +`';`
+        text: `SELECT id, username, password FROM "user" WHERE username ='`+ username +`' AND password ='` + encryptPassword.password + `';`
       };
       const userInDB = await client.query(query);
       return userInDB.rows;
