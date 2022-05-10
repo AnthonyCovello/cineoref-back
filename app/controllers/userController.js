@@ -63,30 +63,27 @@ const controller = {
     async logUser(req,res) {
       const user = req.body;
       const result = await dataMapper.loginUser(user);
-    
-      // je prépare mon envoi
-      const jwtToken = jwt.sign(user, secretKey);
-        console.log(jwtToken);
-      const checkedResult = Object.keys(result)
-      console.log(checkedResult);
-        if (checkedResult != '0') {
+      
+      if (user.username && (await bcrypt.compare(user.password, result.password))){
+        
+        const jwtToken = jwt.sign(user, secretKey);
+            console.log(jwtToken);
+        const jwtContent = {user_id: user.id};
+        const jwtOptions = { 
+          algorithm: 'HS256', 
+          expiresIn: '3h' 
+        };
+      console.log('<< 200', user.username);
+      res.json({ 
+        logged: true, 
+        pseudo: user.username,
+        token: jwt.sign(jwtContent, secretKey, jwtOptions),
+      })
+      } else {
           res.status(401).json({
             message :"Pseudo ou mot de passe incorrect"
           })
-        } else {
-          const jwtContent = {user_id: user.id};
-          const jwtOptions = { 
-            algorithm: 'HS256', 
-            expiresIn: '3h' 
-          };
-        console.log('<< 200', user.username);
-        res.json({ 
-          logged: true, 
-          pseudo: user.username,
-          token: jwt.sign(jwtContent, secretKey, jwtOptions),
-          
-        })
-      }
+        } 
     },
 
     async getUserById(req,res) {
