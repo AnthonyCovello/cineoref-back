@@ -70,7 +70,7 @@ const controller = {
       const checkedResult = Object.keys(result)
       console.log(checkedResult);
         if (checkedResult != '0') {
-          res.sendStatus(401);
+          res.status(401).send("Pseudo ou mot de passe incorrect")
         } else {
           const jwtContent = {user_id: user.id};
           const jwtOptions = { 
