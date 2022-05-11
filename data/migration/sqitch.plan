@@ -6,3 +6,4 @@
 3.updatev3 2022-05-07T14:17:03Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # Adding column artist_id + character_id in table reference
 4.updatev4 2022-05-07T22:01:42Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # adding default to column mature from ref
 5.updatev5 2022-05-09T13:06:32Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # adding default to column mature from ref
+6.updatev6 2022-05-11T22:33:28Z ,,, <daizer_ubuntu@DESKTOP-LR4CBEQ> # creating exention pg_trgm
