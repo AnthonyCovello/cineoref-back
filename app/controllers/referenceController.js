@@ -107,24 +107,26 @@ const controller = {
     },
 
     async getBySearchBar(req, res, next) {
-        const keyword = req.params.params;
+        const param = req.params.params;
+        function escapeRegExp(param) {
+            let map = {
+                '&': '&amp;',
+                 '<': '&lt;',
+                 '>': '&gt;',
+                 '"': '&quot;',
+                 "'": '&#039;'
+            };
+            return param.replace(/[&<>"']/g, function(m) {return map[m];})
+        }
+
+        const keyword = escapeRegExp(param);
         console.log(keyword);
-        // const result = await dataMapper.getBySearchBar(keyword)
-        const result = await dataMapper.getBySearchBarSimilarity()
+        const getRefBySearchBar = await dataMapper.getRefBySearchBar(keyword)
+        const getShowBySearchBar = await dataMapper.getShowBySearchBar(keyword)
+        const getArtistBySearchBar = await dataMapper.getArtistBySearchBar(keyword)
+        const getCharacterBySearchBar = await dataMapper.getCharacterBySearchBar(keyword)
         
-
-            const result_string = {};
-            for(let i = 0;i<result.length;i++){
-                result_string['result_string_'+i] = result[i];
-            }
-            console.log(result_string)
-            let browse = 
-
-            // result_string.forEach(element => {
-                
-            // });
-        // const matches = stringSimilarity.findBestMatch(keyword, test)
-        res.json(result)
+        res.json({getRefBySearchBar, getShowBySearchBar, getArtistBySearchBar, getCharacterBySearchBar})
     },
 
 };
