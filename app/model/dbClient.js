@@ -3,10 +3,10 @@ require('dotenv').config();
 const { Pool } = require('pg');
 
 const client = new Pool({
-    host: DB_HOST,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_DATABASE,
+    host: ENV['DB_HOST'],
+    user: ENV['DB_USER'],
+    password: ENV['DB_PASSWORD'],
+    database: ENV['DB_DATABASE'],
     ssl: {
         rejectUnauthorized: false,
       },
