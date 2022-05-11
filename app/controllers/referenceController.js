@@ -8,6 +8,7 @@ const controller = {
 
     async submitRef (req,res, next) {
         const ref = req.body;
+        console.log(ref);
        // -------- CHECK if {value} exists, if not : create it ---------- //
       const checkShow = await dataMapper.checkShowExist(ref)
       const checkedShow = Object.keys(checkShow)
