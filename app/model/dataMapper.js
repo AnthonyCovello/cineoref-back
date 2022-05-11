@@ -1,5 +1,6 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
+const stringSimilarity = require("string-similarity");
 const datamapper = {
     
 // ------------- USER ----------
@@ -195,7 +196,7 @@ const datamapper = {
     },
 
     async getByCategory(params) {
-        const temp_param = params.substring(1);
+        const temp_param = params
         console.log(temp_param);
         const query = {
           text: `SELECT * 
@@ -244,8 +245,8 @@ const datamapper = {
 
 
    async getRefByCategory(param) {
-     
-      const temp_param = param.substring(1);
+    temp_param = param
+    console.log(temp_param);
       const query = {
         text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
         FROM public.reference
@@ -255,6 +256,8 @@ const datamapper = {
         on reference.artist_id = artist.id
         JOIN public.character
         on reference.character_id = public.character.id
+        JOIN public.user
+		    on reference.user_id = public.user.id
         WHERE show.category ='` + temp_param + `'
         AND status = 'true';`
       }
@@ -264,7 +267,7 @@ const datamapper = {
   
    async getRefByArtist(param) {
      
-    const temp_param = param.substring(1);
+    const temp_param = param
     const query = {
       text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
       FROM public.reference
@@ -274,6 +277,8 @@ const datamapper = {
       on reference.artist_id = artist.id
       JOIN public.character
       on reference.character_id = public.character.id
+      JOIN public.user
+		on reference.user_id = public.user.id
       WHERE artist.name ='` + temp_param + `'
       AND status = 'true';`
     }
@@ -282,8 +287,9 @@ const datamapper = {
  },
 
  async getRefByCharacter(param) {
-     
-  const temp_param = param.substring(1);
+    
+  const temp_param = param
+  console.log(temp_param);
   const query = {
     text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
     FROM public.reference
@@ -293,6 +299,8 @@ const datamapper = {
     on reference.artist_id = artist.id
     JOIN public.character
     on reference.character_id = public.character.id
+    JOIN public.user
+		on reference.user_id = public.user.id
     WHERE character.name ='` + temp_param + `'
     AND status = 'true';`
   }
@@ -310,8 +318,49 @@ async getRefByRandom(){
     on reference.artist_id = artist.id
     JOIN public.character
     on reference.character_id = public.character.id
-  ORDER BY random() LIMIT 1
-  AND status = 'true';`
+    JOIN public.user
+    on reference.user_id = public.user.id
+    WHERE status = 'false'
+    ORDER BY random() LIMIT 1;`
+  }
+  const result = await client.query(query)
+  return result.rows
+},
+
+async getBySearchBar(search) {
+  console.log(search);
+  const keyword = search
+  const query = {
+    text : `SELECT public.reference.ref, show.name AS show, public.character.name AS character, public.artist.name AS artist, public.user.username AS user
+    FROM public.reference
+    JOIN public.show
+    on reference.show_id = show.id
+    JOIN public.artist
+    on reference.artist_id = artist.id
+    JOIN public.character
+    on reference.character_id = public.character.id
+    JOIN public.user
+    on reference.user_id = public.user.id
+    WHERE public.reference.ref LIKE '%`+ keyword +`%' OR show.name LIKE '%`+ keyword +`%' OR    public.character.name LIKE '%`+ keyword +`%' OR public.artist.name LIKE '%`+ keyword +`%'`
+  }
+  const result = await client.query(query)
+  console.log(result.rows);
+  return result.rows
+},
+
+async getBySearchBarSimilarity() {
+  const query = {
+    text : `SELECT public.reference.ref, show.name AS show, public.character.name AS character, public.artist.name AS artist, public.user.username AS user
+    FROM public.reference
+    JOIN public.show
+    on reference.show_id = show.id
+    JOIN public.artist
+    on reference.artist_id = artist.id
+    JOIN public.character
+    on reference.character_id = public.character.id
+    JOIN public.user
+    on reference.user_id = public.user.id
+    `
   }
   const result = await client.query(query)
   return result.rows

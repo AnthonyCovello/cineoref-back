@@ -1,7 +1,7 @@
 const dataMapper = require('../model/dataMapper.js');
 const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
-
+const stringSimilarity = require("string-similarity");
 const jwt = require('jsonwebtoken');
 
 const controller = {
@@ -54,7 +54,7 @@ const controller = {
                 const filtered_artistId = artist_id.artist_id_0
                 const param_artistId = filtered_artistId.id
         // ----- need to catch the user ID through session ----- //
-        const userId = 50
+        const userId = 65
         const reference = ref.reference
 
         // ---- CHECK or INSERT the ids INTO join tables ---- //
@@ -75,7 +75,9 @@ const controller = {
          // -------- SUBMIT the ref ---------- //
 
         const submitRef = await dataMapper.createRef({reference, userId, param_showId, param_artistId, param_characterId})
-        res.json(submitRef)
+        res.json({
+            submitRef, 
+            message: "Citation ajoutée."})
     },
     
     async getByCategory(req, res, next) {
@@ -102,7 +104,28 @@ const controller = {
     async getByRandom(req, res, next) {
         const result = await dataMapper.getRefByRandom()
         res.json(result)
-    }
+    },
+
+    async getBySearchBar(req, res, next) {
+        const keyword = req.params.params;
+        console.log(keyword);
+        // const result = await dataMapper.getBySearchBar(keyword)
+        const result = await dataMapper.getBySearchBarSimilarity()
+        
+
+            const result_string = {};
+            for(let i = 0;i<result.length;i++){
+                result_string['result_string_'+i] = result[i];
+            }
+            console.log(result_string)
+            let browse = 
+
+            // result_string.forEach(element => {
+                
+            // });
+        // const matches = stringSimilarity.findBestMatch(keyword, test)
+        res.json(result)
+    },
 
 };
 
