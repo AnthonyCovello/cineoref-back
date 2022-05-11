@@ -75,7 +75,9 @@ const controller = {
          // -------- SUBMIT the ref ---------- //
 
         const submitRef = await dataMapper.createRef({reference, userId, param_showId, param_artistId, param_characterId})
-        res.json(submitRef)
+        res.json({
+            submitRef, 
+            message: "Citation ajoutée."})
     },
     
     async getByCategory(req, res, next) {
