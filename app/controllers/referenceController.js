@@ -1,7 +1,7 @@
 const dataMapper = require('../model/dataMapper.js');
 const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
-
+const stringSimilarity = require("string-similarity");
 const jwt = require('jsonwebtoken');
 
 const controller = {
@@ -107,7 +107,21 @@ const controller = {
     async getBySearchBar(req, res, next) {
         const keyword = req.params.params;
         console.log(keyword);
-        const result = await dataMapper.getBySearchBar(keyword)
+        // const result = await dataMapper.getBySearchBar(keyword)
+        const result = await dataMapper.getBySearchBarSimilarity()
+        
+
+            const result_string = {};
+            for(let i = 0;i<result.length;i++){
+                result_string['result_string_'+i] = result[i];
+            }
+            console.log(result_string)
+            let browse = 
+
+            // result_string.forEach(element => {
+                
+            // });
+        // const matches = stringSimilarity.findBestMatch(keyword, test)
         res.json(result)
     },
 

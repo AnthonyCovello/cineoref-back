@@ -1,5 +1,6 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
+const stringSimilarity = require("string-similarity");
 const datamapper = {
     
 // ------------- USER ----------
@@ -344,6 +345,24 @@ async getBySearchBar(search) {
   }
   const result = await client.query(query)
   console.log(result.rows);
+  return result.rows
+},
+
+async getBySearchBarSimilarity() {
+  const query = {
+    text : `SELECT public.reference.ref, show.name AS show, public.character.name AS character, public.artist.name AS artist, public.user.username AS user
+    FROM public.reference
+    JOIN public.show
+    on reference.show_id = show.id
+    JOIN public.artist
+    on reference.artist_id = artist.id
+    JOIN public.character
+    on reference.character_id = public.character.id
+    JOIN public.user
+    on reference.user_id = public.user.id
+    `
+  }
+  const result = await client.query(query)
   return result.rows
 }
 
