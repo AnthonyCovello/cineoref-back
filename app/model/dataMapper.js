@@ -320,51 +320,86 @@ async getRefByRandom(){
     on reference.character_id = public.character.id
     JOIN public.user
     on reference.user_id = public.user.id
-    WHERE status = 'false'
+    WHERE status = 'true'
     ORDER BY random() LIMIT 1;`
   }
   const result = await client.query(query)
   return result.rows
 },
 
-async getBySearchBar(search) {
+async getRefBySearchBar(search) {
   console.log(search);
   const keyword = search
   const query = {
-    text : `SELECT public.reference.ref, show.name AS show, public.character.name AS character, public.artist.name AS artist, public.user.username AS user
-    FROM public.reference
-    JOIN public.show
-    on reference.show_id = show.id
-    JOIN public.artist
-    on reference.artist_id = artist.id
-    JOIN public.character
-    on reference.character_id = public.character.id
-    JOIN public.user
-    on reference.user_id = public.user.id
-    WHERE public.reference.ref LIKE '%`+ keyword +`%' OR show.name LIKE '%`+ keyword +`%' OR    public.character.name LIKE '%`+ keyword +`%' OR public.artist.name LIKE '%`+ keyword +`%'`
+   text : `SELECT public.reference.id, public.reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+   FROM public.reference
+   JOIN public.show
+   on reference.show_id = show.id
+   JOIN public.artist
+   on reference.artist_id = artist.id
+   JOIN public.character
+   on reference.character_id = public.character.id
+   JOIN public.user
+   on reference.user_id = public.user.id
+   WHERE status = 'false'
+   AND similarity(public.reference.ref, '%` + keyword +`%') > 0
+   ORDER BY similarity(public.reference.ref, '%`+ keyword +`%') DESC
+    `
   }
   const result = await client.query(query)
   console.log(result.rows);
   return result.rows
 },
 
-async getBySearchBarSimilarity() {
+async getShowBySearchBar(search) {
+  console.log(search);
+  const keyword = search
   const query = {
-    text : `SELECT public.reference.ref, show.name AS show, public.character.name AS character, public.artist.name AS artist, public.user.username AS user
-    FROM public.reference
-    JOIN public.show
-    on reference.show_id = show.id
-    JOIN public.artist
-    on reference.artist_id = artist.id
-    JOIN public.character
-    on reference.character_id = public.character.id
-    JOIN public.user
-    on reference.user_id = public.user.id
-    `
+   text : `SELECT show.id, show.name, show.category
+   FROM public.show
+   WHERE similarity(show.name, $1) > 0
+   ORDER BY similarity(show.name, $1) DESC, show.name;
+    `,
+    values: [keyword]
   }
   const result = await client.query(query)
+  console.log(result.rows);
   return result.rows
-}
+},
+
+async getArtistBySearchBar(search) {
+  console.log(search);
+  const keyword = search
+  const query = {
+   text : `SELECT artist.id, artist.name
+  FROM public.artist
+  WHERE similarity(artist.name,$1)  > 0
+  ORDER BY similarity(artist.name, $1) DESC, artist.name;
+    `,
+    values: [keyword]
+  }
+  const result = await client.query(query)
+  console.log(result.rows);
+  return result.rows
+},
+
+async getCharacterBySearchBar(search) {
+  console.log(search);
+  const keyword = search
+  const query = {
+   text : `SELECT character.id, character.name
+   FROM public.character
+   WHERE similarity(character.name, $1) > 0
+   ORDER BY similarity(character.name, $1) DESC, character.name;
+    `,
+    values: [keyword]
+  }
+  const result = await client.query(query)
+  console.log(result.rows);
+  return result.rows
+},
+
+
 
 
 
