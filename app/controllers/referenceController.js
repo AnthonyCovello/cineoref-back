@@ -102,7 +102,14 @@ const controller = {
     async getByRandom(req, res, next) {
         const result = await dataMapper.getRefByRandom()
         res.json(result)
-    }
+    },
+
+    async getBySearchBar(req, res, next) {
+        const keyword = req.params.params;
+        console.log(keyword);
+        const result = await dataMapper.getBySearchBar(keyword)
+        res.json(result)
+    },
 
 };
 
