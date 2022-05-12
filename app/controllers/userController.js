@@ -17,7 +17,7 @@ const controller = {
     async createUser(req,res, next) {
         // User contient email / username / password
         const user = req.body;
-        
+        const id = user.id
        
         const checkUser = await dataMapper.checkUser(user)
             const checkedUser = Object.keys(checkUser)
@@ -34,7 +34,7 @@ const controller = {
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
         } 
 
-        const getRole = await dataMapper.getUserById(user.id)
+        const getRole = await dataMapper.getUserById(id)
         const jwtToken = jwt.sign(user, secretKey)
           console.log(jwtToken);
         
@@ -65,8 +65,9 @@ const controller = {
    */
     async logUser(req,res) {
       const user = req.body;
+      const id = user.id
       const checkResult = await dataMapper.loginUser(user);
-      const getRole = await dataMapper.getUserById(user.id)
+      const getRole = await dataMapper.getUserById(id)
       console.log(getRole.role);
       if (checkResult) {
       bcrypt.compare(user.password, checkResult.password, function(err, match){
