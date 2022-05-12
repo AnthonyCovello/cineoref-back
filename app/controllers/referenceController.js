@@ -55,7 +55,7 @@ const controller = {
                 const filtered_artistId = artist_id.artist_id_0
                 const param_artistId = filtered_artistId.id
         // ----- need to catch the user ID through session ----- //
-        const userId = 65
+        const userId = 117
         const reference = ref.reference
 
         // ---- CHECK or INSERT the ids INTO join tables ---- //
