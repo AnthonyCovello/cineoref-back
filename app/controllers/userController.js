@@ -93,6 +93,7 @@ const controller = {
       res.json({ 
         logged: true, 
         pseudo: user.username,
+        role,
         token: jwt.sign(jwtContent, secretKey, jwtOptions),
         })
         }
