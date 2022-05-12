@@ -20,41 +20,40 @@ const controller = {
         const checkUser = await dataMapper.checkUser(user)
         const checkedUser = Object.keys(checkUser)
         if (checkedUser != '0'){
-          next()
+          const result = await dataMapper.createUser(user);
+          if (!(user.username && user.email && user.birthday && user.password)) {
+            res.status(400).send("Tout les champs sont nécessaire");
+          }
+          console.log(result.rowCount);
+          if(!result.rowCount){
+            throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
+          } 
+          const getRole = await dataMapper.getUserByName(user)
+          const role = getRole.role
+          const jwtToken = jwt.sign(user, secretKey)
+            console.log(jwtToken);
+          
+          const jwtContent = {
+            user_id: getRole.id,
+            role
+          };
+          const jwtOptions = { 
+             algorithm: 'HS256', 
+             expiresIn: '3h' 
+            };
+          
+          
+          res.status(200).json({ 
+            logged: true, 
+            pseudo: user.username,
+            role,
+            token: jwt.sign(jwtContent, secretKey, jwtOptions),
+            message: "Compte créé et connecté"
+            
+          })
         } else {
           return res.status(409).send("Pseudo déjà existant")
         }
-        const result = await dataMapper.createUser(user);
-        if (!(user.username && user.email && user.birthday && user.password)) {
-          res.status(400).send("Tout les champs sont nécessaire");
-        }
-        console.log(result.rowCount);
-        if(!result.rowCount){
-          throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
-        } 
-        const getRole = await dataMapper.getUserByName(user)
-        const role = getRole.role
-        const jwtToken = jwt.sign(user, secretKey)
-          console.log(jwtToken);
-        
-        const jwtContent = {
-          user_id: getRole.id,
-          role
-        };
-        const jwtOptions = { 
-           algorithm: 'HS256', 
-           expiresIn: '3h' 
-          };
-        
-        
-        res.status(200).json({ 
-          logged: true, 
-          pseudo: user.username,
-          role,
-          token: jwt.sign(jwtContent, secretKey, jwtOptions),
-          message: "Compte créé et connecté"
-          
-        })
         
       },
 
