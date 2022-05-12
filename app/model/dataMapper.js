@@ -14,6 +14,7 @@ const datamapper = {
             password : hash
           }
         })
+        encrypt(user)
         console.log(postUser);
        const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
@@ -52,7 +53,7 @@ const datamapper = {
     },
 
     async getUserByName(name) {
-      console.log(id);
+      console.log(name);
       const query = {
         text : `SELECT public.user.id AS id, public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
         FROM "user" 
