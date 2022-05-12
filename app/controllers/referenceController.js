@@ -115,7 +115,11 @@ const controller = {
                  '<': '&lt;',
                  '>': '&gt;',
                  '"': '&quot;',
-                 "'": '&#039;'
+                 "'": '&#039;',
+                 "~": '&#126',
+                 "`": '&grave',
+                 "-": '&minus',
+                 "#": '%23',
             };
             return param.replace(/[&<>"']/g, function(m) {return map[m];})
         }

@@ -34,11 +34,14 @@ const controller = {
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
         } 
 
-
+        const getRole = await dataMapper.getUserById(user.id)
         const jwtToken = jwt.sign(user, secretKey)
           console.log(jwtToken);
         
-        const jwtContent = {user_id: user.id};
+        const jwtContent = {
+          user_id: user.id,
+          role_id: getRole.role
+        };
         const jwtOptions = { 
            algorithm: 'HS256', 
            expiresIn: '3h' 
@@ -63,6 +66,8 @@ const controller = {
     async logUser(req,res) {
       const user = req.body;
       const checkResult = await dataMapper.loginUser(user);
+      const getRole = await dataMapper.getUserById(user.id)
+      console.log(getRole.role);
       if (checkResult) {
       bcrypt.compare(user.password, checkResult.password, function(err, match){
         if (err) {
@@ -74,7 +79,10 @@ const controller = {
         } else if (match) {
         const jwtToken = jwt.sign(user, secretKey);
             console.log(jwtToken);
-        const jwtContent = {user_id: user.id};
+        const jwtContent = {
+          user_id: user.id,
+          role_id: getRole.role
+        };
         const jwtOptions = { 
           algorithm: 'HS256', 
           expiresIn: '3h' 
