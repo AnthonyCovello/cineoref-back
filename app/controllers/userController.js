@@ -82,7 +82,7 @@ const controller = {
         const jwtToken = jwt.sign(user, secretKey);
             console.log(jwtToken);
         const jwtContent = {
-          user_id: user.id,
+          user_id: id,
           role,
         };
         const jwtOptions = { 
@@ -93,7 +93,7 @@ const controller = {
       res.json({ 
         logged: true, 
         pseudo: user.username,
-        user_id: user.id,
+        user_id: id,
         role,
         token: jwt.sign(jwtContent, secretKey, jwtOptions),
         })
