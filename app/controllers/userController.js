@@ -15,22 +15,7 @@ const controller = {
    */
     async createUser(req,res, next) {
         // User contient email / username / password
-        const keywords = req.body;
-        function escapeRegExp(param) {
-          let map = {
-              '&': '&amp;',
-               '<': '&lt;',
-               '>': '&gt;',
-               '"': '&quot;',
-               "'": '&#039;',
-               "~": '&#126',
-               "`": '&grave',
-               "-": '&minus',
-               "#": '%23',
-          };
-          return param.replace(/[&<>"']/g, function(m) {return map[m];})
-      }
-      const user = escapeRegExp(keywords)
+        const user = req.body;
         if (!(user.username && user.email && user.birthday && user.password)) {
           res.status(400).send("Tout les champs sont nécessaire");
         }

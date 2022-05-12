@@ -16,6 +16,22 @@ const datamapper = {
         }
       }
        await encrypt()
+       function escapeRegExp(param) {
+        let map = {
+            '&': '&amp;',
+             '<': '&lt;',
+             '>': '&gt;',
+             '"': '&quot;',
+             "'": '&#039;',
+             "~": '&#126',
+             "`": '&grave',
+             "-": '&minus',
+             "#": '%23',
+        };
+        return param.replace(/[&<>"']/g, function(m) {return map[m];})
+    }
+    const emailpostUser = postUser.email
+    const email = escapeRegExp(emailpostUser)
        const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
           values: [postUser.username, postUser.email, postUser.birthday, postUser.password]
