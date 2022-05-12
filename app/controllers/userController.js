@@ -32,8 +32,8 @@ const controller = {
         if(!result.rowCount){
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
         } 
-        const id = checkUser.id
-        const getRole = await dataMapper.getUserById(id)
+        const name = user.username
+        const getRole = await dataMapper.getUserByName(name)
         const role = getRole.role
         const jwtToken = jwt.sign(user, secretKey)
           console.log(jwtToken);

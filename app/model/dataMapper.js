@@ -50,6 +50,22 @@ const datamapper = {
       console.log(result.rows[0]);
       return result.rows[0]
     },
+
+    async getUserByName(name) {
+      console.log(id);
+      const query = {
+        text : `SELECT public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
+        FROM "user" 
+        JOIN role
+        ON public.user.role_id = role.id
+        JOIN grade
+        ON public.user.grade_id = grade.id
+        WHERE public.user.username = ${name}`
+      }
+      const result = await client.query(query);
+      console.log(result.rows[0]);
+      return result.rows[0]
+    },
     
     async getUsers() {
       const query = {
