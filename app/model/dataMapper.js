@@ -54,7 +54,7 @@ const datamapper = {
     async getUserByName(name) {
       console.log(id);
       const query = {
-        text : `SELECT public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
+        text : `SELECT public.user.username.id AS id, public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
         FROM "user" 
         JOIN role
         ON public.user.role_id = role.id

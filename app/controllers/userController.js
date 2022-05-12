@@ -39,7 +39,7 @@ const controller = {
           console.log(jwtToken);
         
         const jwtContent = {
-          user_id: user.id,
+          user_id: getRole.id,
           role
         };
         const jwtOptions = { 
