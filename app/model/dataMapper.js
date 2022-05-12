@@ -14,7 +14,7 @@ const datamapper = {
             password : hash
           }
         })
-        
+        console.log(encrypt);
        const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
           values: [postUser.username, postUser.email, postUser.birthday, postUser.password]
@@ -51,8 +51,9 @@ const datamapper = {
       return result.rows[0]
     },
 
-    async getUserByName(name) {
-      console.log(name);
+    async getUserByName(user) {
+      console.log(user);
+      const pseudo = user.username
       const query = {
         text : `SELECT public.user.id AS id, public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
         FROM "user" 
@@ -60,7 +61,7 @@ const datamapper = {
         ON public.user.role_id = role.id
         JOIN grade
         ON public.user.grade_id = grade.id
-        WHERE public.user.username = ${name}`
+        WHERE public.user.username ='`+ pseudo +`'`
       }
       const result = await client.query(query);
       console.log(result.rows[0]);
