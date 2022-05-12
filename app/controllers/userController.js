@@ -47,7 +47,7 @@ const controller = {
           };
         
         
-        res.json({ 
+        res.status(200).json({ 
           logged: true, 
           pseudo: user.username,
           role,
