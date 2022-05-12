@@ -17,14 +17,14 @@ const controller = {
         // User contient email / username / password
         const user = req.body;
         
+        if (!(user.username && user.email && user.birthday && user.password)) {
+          res.status(400).send("Tout les champs sont nécessaire");
+        }
         const checkUser = await dataMapper.checkUser(user)
         const checkedUser = Object.keys(checkUser)
         if (checkedUser != '0'){
           const result = await dataMapper.createUser(user);
-          if (!(user.username && user.email && user.birthday && user.password)) {
-            res.status(400).send("Tout les champs sont nécessaire");
-          }
-          console.log(result.rowCount);
+          console.log(result);
           if(!result.rowCount){
             throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
           } 
