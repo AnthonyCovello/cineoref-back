@@ -46,6 +46,7 @@ const controller = {
           res.status(200).json({ 
             logged: true, 
             pseudo: user.username,
+            user_id: getRole.id,
             role,
             token: jwt.sign(jwtContent, secretKey, jwtOptions),
             message: "Compte créé et connecté"
@@ -92,7 +93,7 @@ const controller = {
       res.json({ 
         logged: true, 
         pseudo: user.username,
-        user_id,
+        user_id: user.id,
         role,
         token: jwt.sign(jwtContent, secretKey, jwtOptions),
         })
