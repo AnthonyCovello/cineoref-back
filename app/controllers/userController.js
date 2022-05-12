@@ -28,6 +28,7 @@ const controller = {
         if (!(user.username && user.email && user.birthday && user.password)) {
           res.status(400).send("Tout les champs sont nécessaire");
         }
+        console.log(result.rowCount);
         if(!result.rowCount){
           throw new APIError ("Impossible d'enregistrer l'utilisateur en base")
         } 
