@@ -45,7 +45,7 @@ const datamapper = {
         ON public.user.role_id = role.id
         JOIN grade
         ON public.user.grade_id = grade.id
-        WHERE id = ${user_id}`
+        WHERE public.user.id = ${user_id}`
       }
       const result = await client.query(query);
       console.log(result.rows[0]);
