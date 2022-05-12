@@ -39,7 +39,13 @@ const datamapper = {
       const user_id = id.substring(1);
       console.log(id);
       const query = {
-        text : `SELECT * FROM "user" WHERE id = ${user_id}`
+        text : `SELECT public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
+        FROM "user" 
+        JOIN role
+        ON public.user.role_id = role.id
+        JOIN grade
+        ON public.user.grade_id = grade.id
+        WHERE id = ${user_id}`
       }
       const result = await client.query(query);
       console.log(result.rows[0]);
