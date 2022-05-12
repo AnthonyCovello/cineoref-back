@@ -6,14 +6,14 @@ const datamapper = {
 // ------------- USER ----------
 
     async createUser(user) {
-        async function encrypt() { bcrypt.hash(user.password,10).then((hash) => {
-          return postUser = {
-            username : user.username,
-            email : user.email,
-            birthday : user.birthday,
-            password : hash
-          }
-        })
+      async function encrypt() {
+        const hash = await bcrypt.hash(user.password, 10)
+        return postUser = {
+          username: user.username,
+          email: user.email,
+          birthday: user.birthday,
+          password: hash
+        }
       }
        const postUser = await encrypt()
        const query = {
