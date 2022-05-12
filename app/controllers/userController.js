@@ -65,8 +65,8 @@ const controller = {
    */
     async logUser(req,res) {
       const user = req.body;
-      const id = user.id
       const checkResult = await dataMapper.loginUser(user);
+      const id = checkResult.id
       const getRole = await dataMapper.getUserById(id)
       const role = getRole.role
       console.log(role);
