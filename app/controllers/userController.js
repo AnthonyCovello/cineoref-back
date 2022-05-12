@@ -68,9 +68,7 @@ const controller = {
       const id = user.id
       const checkResult = await dataMapper.loginUser(user);
       const getRole = await dataMapper.getUserById(id)
-      console.log(getRole);
-      console.log(getRole.name);
-      const role = getRole.name
+      const role = getRole.role
       console.log(role);
       if (checkResult) {
       bcrypt.compare(user.password, checkResult.password, function(err, match){
@@ -85,7 +83,7 @@ const controller = {
             console.log(jwtToken);
         const jwtContent = {
           user_id: user.id,
-          role_id: getRole.role
+          role,
         };
         const jwtOptions = { 
           algorithm: 'HS256', 
