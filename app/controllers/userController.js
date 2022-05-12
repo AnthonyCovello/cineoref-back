@@ -68,7 +68,10 @@ const controller = {
       const id = user.id
       const checkResult = await dataMapper.loginUser(user);
       const getRole = await dataMapper.getUserById(id)
-      console.log(getRole.role);
+      console.log(getRole);
+      console.log(getRole.name);
+      const role = getRole.name
+      console.log(role);
       if (checkResult) {
       bcrypt.compare(user.password, checkResult.password, function(err, match){
         if (err) {
