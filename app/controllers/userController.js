@@ -16,7 +16,6 @@ const controller = {
     async createUser(req,res, next) {
         // User contient email / username / password
         const user = req.body;
-        
         if (!(user.username && user.email && user.birthday && user.password)) {
           res.status(400).send("Tout les champs sont nécessaire");
         }
