@@ -15,7 +15,7 @@ const datamapper = {
           }
         })
       }
-       encrypt()
+       const postUser = encrypt()
        const query = {
           text: `INSERT INTO "user" (username, email, birthday, password) VALUES($1, $2, $3, $4);`,
           values: [postUser.username, postUser.email, postUser.birthday, postUser.password]
