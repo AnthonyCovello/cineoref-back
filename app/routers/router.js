@@ -29,6 +29,7 @@ router
     .get('/listartist/:params', routerWrapper(referenceController.getByArtist))
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
     .get('/listcharacter/:params', routerWrapper(referenceController.getByCharacter))
+    .get('/mostrecent', routerWrapper(listController.getByRecent))
     .get('/search/:params', routerWrapper(referenceController.getBySearchBar))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
     .get('/random', routerWrapper(referenceController.getByRandom))
