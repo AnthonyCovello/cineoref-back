@@ -375,7 +375,7 @@ async getRefByRandom(){
     ORDER BY random() LIMIT 1;`
   }
   const result = await client.query(query)
-  return result.rows
+  return result.rows[0]
 },
 
 async getRefBySearchBar(search) {
