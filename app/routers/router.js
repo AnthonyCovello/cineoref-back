@@ -30,11 +30,13 @@ router
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
     .get('/listcharacter/:params', routerWrapper(referenceController.getByCharacter))
     .get('/mostrecent', routerWrapper(referenceController.getByRecent))
-    .get('/topfive', routerWrapper(userController.getTopFive))
+    .get('/usertopfive', routerWrapper(userController.getTopFive))
     .get('/search/:params', routerWrapper(referenceController.getBySearchBar))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
     .get('/random', routerWrapper(referenceController.getByRandom))
-    .get('/admin/dashboard', jwToken, security.check, routerWrapper(adminController.getAdminDashboard))
+    .get('/admin/dashboard',  routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
+    .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest))
+    .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm))
     //route Put  to validate reference request
     .use(handleError);
     

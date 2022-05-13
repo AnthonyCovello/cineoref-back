@@ -116,10 +116,32 @@ const datamapper = {
         JOIN public.user
         on reference.user_id = public.user.id
         WHERE reference.user_id = public.user.id
+        AND reference.status = 'true'
         GROUP BY public.user.username
         ORDER BY count DESC limit 5`
       }
       const result = await client.query(query);
+      return result.rows[0]
+    },
+
+    async getContribById(id) {
+      const query = {
+        text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, reference.created_at
+        FROM public.reference
+        JOIN public.show
+        on reference.show_id = show.id
+        JOIN public.artist
+        on reference.artist_id = artist.id
+        JOIN public.character
+        on reference.character_id = public.character.id
+	    	JOIN public.user
+	    	on reference.user_id = public.user.id
+	    	WHERE public.user.id = $1
+	    	AND status = 'true'
+	    	ORDER BY reference.created_at DESC`,
+        values : [id]
+      }
+      const result = await client.query(query)
       return result.rows
     },
     
@@ -283,6 +305,36 @@ const datamapper = {
       return result.rows
     },
 
+    async getEditForm(id){
+      const query = {
+        text : `SELECT reference.id, reference.ref, show.name AS show_title, reference.mature, artist.name AS artist, character.name AS character
+        FROM public.reference
+        JOIN public.show
+        on reference.show_id = show.id
+        JOIN public.artist
+        on reference.artist_id = artist.id
+        JOIN public.character
+        on reference.character_id = public.character.id
+        JOIN public.user
+        on reference.user_id = public.user.id
+        WHERE reference.id = $1  `,
+        values : [id]
+      }
+      const result = await client.query(query);
+      return result.rows
+    },
+
+    async validateRequest(id){
+      const query = {
+        text : `UPDATE public.reference
+        SET status = 'true'
+        WHERE reference.id = $1`,
+        values : [id]
+      }
+      const result = await client.query(query);
+      return result.rows
+    },
+
     async createRef(param) {
         console.log([param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]);
         const query = {
@@ -375,7 +427,7 @@ async getRefByRandom(){
     ORDER BY random() LIMIT 1;`
   }
   const result = await client.query(query)
-  return result.rows
+  return result.rows[0]
 },
 
 async getRefBySearchBar(search) {

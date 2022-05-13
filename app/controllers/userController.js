@@ -109,8 +109,9 @@ const controller = {
 
     async getUserById(req,res) {
         const id = req.params.id;
-        const result = await datamapper.getUserById(id);
-        res.json(result);
+        const user = await dataMapper.getUserById(id);
+        const contribution = await dataMapper.getContribById(id)
+        res.json({user, contribution});
     },
 
     async getTopFive(req,res) {
