@@ -116,6 +116,7 @@ const datamapper = {
         JOIN public.user
         on reference.user_id = public.user.id
         WHERE reference.user_id = public.user.id
+        AND reference.status = 'true'
         GROUP BY public.user.username
         ORDER BY count DESC limit 5`
       }
