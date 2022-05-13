@@ -109,7 +109,19 @@ const datamapper = {
       return checkUser.rows;
     }, 
       
-    
+    async getTopFive() {
+      const query = {
+        text : `SELECT count(reference.id), public.user.username
+        FROM public.reference
+        JOIN public.user
+        on reference.user_id = public.user.id
+        WHERE reference.user_id = public.user.id
+        GROUP BY public.user.username
+        ORDER BY count DESC limit 5`
+      }
+      const result = await client.query(query);
+      return result.rows
+    },
     
   // --------------- CHARACTER ----------
 
@@ -380,7 +392,7 @@ async getRefBySearchBar(search) {
    on reference.character_id = public.character.id
    JOIN public.user
    on reference.user_id = public.user.id
-   WHERE status = 'false'
+   WHERE status = 'true'
    AND similarity(public.reference.ref, '%` + keyword +`%') > 0
    ORDER BY similarity(public.reference.ref, '%`+ keyword +`%') DESC
     `
@@ -450,7 +462,7 @@ async getByRecent() {
     on reference.character_id = public.character.id
     JOIN public.user
     on reference.user_id = public.user.id
-    WHERE status = 'false'
+    WHERE status = 'true'
     ORDER BY reference.created_at DESC LIMIT 5
 `
   }

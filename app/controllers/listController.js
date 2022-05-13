@@ -27,10 +27,7 @@ const controller = {
         res.json(result);
     },
 
-    async getByRecent(req,res,next) {
-        const result = await dataMapper.getByRecent();
-        res.json(result)
-    },
+    
     
 
 
