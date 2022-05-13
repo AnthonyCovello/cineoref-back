@@ -133,6 +133,11 @@ const controller = {
         
         res.json({getRefBySearchBar, getShowBySearchBar, getArtistBySearchBar, getCharacterBySearchBar})
     },
+    
+    async getByRecent(req,res,next) {
+        const result = await dataMapper.getByRecent();
+        res.json(result)
+    },
 
 };
 

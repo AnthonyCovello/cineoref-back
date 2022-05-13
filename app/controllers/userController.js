@@ -113,6 +113,11 @@ const controller = {
         res.json(result);
     },
 
+    async getTopFive(req,res) {
+      const result = await dataMapper.getTopFive();
+      res.json(result)
+    },
+
 
 
 

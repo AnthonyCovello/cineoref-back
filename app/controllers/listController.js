@@ -26,6 +26,8 @@ const controller = {
         const result = await dataMapper.getByCharacter();
         res.json(result);
     },
+
+    
     
 
 
