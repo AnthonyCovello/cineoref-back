@@ -121,7 +121,7 @@ const datamapper = {
         ORDER BY count DESC limit 5`
       }
       const result = await client.query(query);
-      return result.rows[0]
+      return result.rows
     },
 
     async getContribById(id) {
