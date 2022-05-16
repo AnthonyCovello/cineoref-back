@@ -139,6 +139,13 @@ const controller = {
         res.json(result)
     },
 
+    async getById(req,res,next) {
+        const id = req.params
+        console.log(id);
+        const result = await dataMapper.getRefById(id)
+        res.json(result)
+    }
+
 };
 
 module.exports = controller;

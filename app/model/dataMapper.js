@@ -520,6 +520,25 @@ async getByRecent() {
   }
   const result = await client.query(query)
   return result.rows
+},
+
+async getRefById(id){
+  const query = {
+    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+    FROM public.reference
+    JOIN public.show
+    on reference.show_id = show.id
+    JOIN public.artist
+    on reference.artist_id = artist.id
+    JOIN public.character
+    on reference.character_id = public.character.id
+    JOIN public.user
+    on reference.user_id = public.user.id
+    WHERE reference.id = $1`,
+    values : [id]
+  }
+  const result = await client.query(query)
+  return result.rows
 }
 
 
