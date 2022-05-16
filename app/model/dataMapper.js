@@ -111,7 +111,7 @@ const datamapper = {
       
     async getTopFive() {
       const query = {
-        text : `SELECT count(reference.id), public.user.username
+        text : `SELECT count(reference.id), public.user.id, public.user.username
         FROM public.reference
         JOIN public.user
         on reference.user_id = public.user.id

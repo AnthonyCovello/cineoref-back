@@ -122,7 +122,6 @@ const controller = {
       const user = req.body
       console.log(user);
       const checkPseudo = await dataMapper.checkUser(user)
-      console.log(checkPseudo);
       const checkedPseudo = Object.keys(checkPseudo)
       if(checkedPseudo !='0'){
         console.log('Updating profil');
