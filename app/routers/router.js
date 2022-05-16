@@ -30,6 +30,7 @@ router
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
     .get('/listcharacter/:params', routerWrapper(referenceController.getByCharacter))
     .get('/ref/:id', routerWrapper(referenceController.getById))
+    .delete('/ref/:id', routerWrapper(referenceController.deleteById)) //jwToken, security.check,
     .get('/mostrecent', routerWrapper(referenceController.getByRecent))
     .get('/usertopfive', routerWrapper(userController.getTopFive))
     .get('/search/:params', routerWrapper(referenceController.getBySearchBar))

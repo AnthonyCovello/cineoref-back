@@ -539,7 +539,16 @@ async getRefById(id){
   }
   const result = await client.query(query)
   return result.rows
-}
+},
+
+async deleteById(id){
+  const query = {
+    text : `DELETE FROM reference WHERE id = $1`,
+    values : [id]
+  }
+  const result = await client.query(query)
+  return result.rows
+},
 
 
 

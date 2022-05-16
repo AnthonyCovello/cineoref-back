@@ -140,11 +140,16 @@ const controller = {
     },
 
     async getById(req,res,next) {
-        const id = req.params
-        console.log(id);
+        const id = req.params.id
         const result = await dataMapper.getRefById(id)
         res.json(result)
-    }
+    },
+
+    async deleteById(req,res,next){
+        const id = req.params.id
+        const result = await dataMapper.deleteById(id)
+        res.json({message : "Référence effacé"})
+    },
 
 };
 
