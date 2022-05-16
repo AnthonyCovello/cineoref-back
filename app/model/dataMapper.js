@@ -1,6 +1,7 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
 const stringSimilarity = require("string-similarity");
+const { editProfil } = require('../controllers/userController.js');
 const datamapper = {
     
 // ------------- USER ----------
@@ -143,6 +144,47 @@ const datamapper = {
       }
       const result = await client.query(query)
       return result.rows
+    },
+
+    async editProfil(user){
+      console.log(user);
+      async function encrypt() {
+        const hash = await bcrypt.hash(user.password, 10)
+        return postUser = {
+          username: user.username,
+          email: user.email,
+          birthday: user.birthday,
+          password: hash
+        }
+      }
+       await encrypt()
+       function escapeRegExp(param) {
+        let map = {
+            '&': '&amp;',
+             '<': '&lt;',
+             '>': '&gt;',
+             '"': '&quot;',
+             "'": '&#039;',
+             "~": '&#126',
+             "`": '&grave',
+             "-": '&minus',
+             "#": '%23',
+        };
+        return param.replace(/[&<>"']/g, function(m) {return map[m];})
+    }
+    const emailpostUser = postUser.email
+    const email = escapeRegExp(emailpostUser)
+      const query = {
+        text : `UPDATE public.user
+                   SET  "username" = $1,
+                            "email" = $2,
+                            "birthday" = $3,
+                            "password" = $4
+                            where id = $5;`,
+        values : [postUser.username, email, postUser.birthday, postUser.password, user.id]
+      }
+      const result = await client.query(query)
+      return result
     },
     
   // --------------- CHARACTER ----------
