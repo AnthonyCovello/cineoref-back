@@ -137,7 +137,7 @@ const datamapper = {
 
     async getContribById(id) {
       const query = {
-        text : `SELECT reference.id, reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, reference.created_at
+        text : `SELECT reference.id, reference.ref, show.name AS show, show.category, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, reference.created_at
         FROM public.reference
         JOIN public.show
         on reference.show_id = show.id
