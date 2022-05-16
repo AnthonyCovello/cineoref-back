@@ -36,8 +36,8 @@ router
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
     .get('/random', routerWrapper(referenceController.getByRandom))
     .get('/admin/dashboard',  routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
-    .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest))
-    .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm))
+    .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest)) //jwToken, security.check,
+    .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm)) //jwToken, security.check,
     //route Put  to validate reference request
     .use(handleError);
     
