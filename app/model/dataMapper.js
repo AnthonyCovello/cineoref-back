@@ -111,13 +111,13 @@ const datamapper = {
       
     async getTopFive() {
       const query = {
-        text : `SELECT count(reference.id), public.user.id, public.user.username
+        text : `SELECT count(reference.id), public.user.username, public.user.id
         FROM public.reference
         JOIN public.user
         on reference.user_id = public.user.id
         WHERE reference.user_id = public.user.id
         AND reference.status = 'true'
-        GROUP BY public.user.username
+        GROUP BY public.user.username, public.user.id
         ORDER BY count DESC limit 5`
       }
       const result = await client.query(query);
