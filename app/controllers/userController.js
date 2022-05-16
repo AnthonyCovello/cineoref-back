@@ -52,7 +52,7 @@ const controller = {
             
           })
         } else {
-          return res.status(409).send("Pseudo déjà existant")
+          return res.status(409).json({message :"Pseudo déjà existant"})
         }
         
       },
