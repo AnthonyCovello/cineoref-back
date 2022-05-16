@@ -6,6 +6,7 @@ const datamapper = {
 // ------------- USER ----------
 
     async createUser(user) {
+      console.log(user);
       async function encrypt() {
         const hash = await bcrypt.hash(user.password, 10)
         return postUser = {
@@ -93,7 +94,7 @@ const datamapper = {
         WHERE public.user.username ='`+ pseudo +`'`
       }
       const result = await client.query(query);
-      return result.rows[0]
+      return result.rows
     },
     
     async getUsers() {
@@ -117,7 +118,7 @@ const datamapper = {
         text: `SELECT id, username FROM "user" WHERE username ='` + username + `';`
       };
       const checkUser = await client.query(query);
-      return checkUser.rows[0];
+      return checkUser.rows;
     }, 
       
     async getTopFive() {
