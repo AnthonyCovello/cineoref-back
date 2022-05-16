@@ -4,7 +4,6 @@ const fetch = require("node-fetch");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const secretKey = "mange tes morts";
-const datamapper = require('../model/dataMapper.js');
 
 const controller = {
 
@@ -122,7 +121,7 @@ const controller = {
     async editProfil(req,res,next){
       const user = req.body
       console.log(user);
-      const checkPseudo = await dataMapper.getUserByName(user)
+      const checkPseudo = await dataMapper.checkUser(user)
       console.log(checkPseudo);
       const checkedPseudo = Object.keys(checkPseudo)
       if(checkedPseudo !='0'){
