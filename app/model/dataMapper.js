@@ -55,7 +55,7 @@ const datamapper = {
     async getUserById(id) {
       console.log(id);
       const query = {
-        text : `SELECT public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture 
+        text : `SELECT public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture, public.user.created_at, public.user.updated_at
         FROM "user" 
         JOIN role
         ON public.user.role_id = role.id
@@ -84,6 +84,17 @@ const datamapper = {
       console.log(result.rows[0]);
       return result.rows[0]
     },
+
+    async checkUserByName(user) {
+      const pseudo = user.username
+      const query = {
+        text : `SELECT public.user.id AS id, public.user.username
+        FROM "user" 
+        WHERE public.user.username ='`+ pseudo +`'`
+      }
+      const result = await client.query(query);
+      return result.rows[0]
+    },
     
     async getUsers() {
       const query = {
@@ -103,10 +114,10 @@ const datamapper = {
       const username = user.username
       const email = user.email
       const query = {
-        text: `SELECT id FROM "user" WHERE username ='` + username + `';`
+        text: `SELECT id, username FROM "user" WHERE username ='` + username + `';`
       };
       const checkUser = await client.query(query);
-      return checkUser.rows;
+      return checkUser.rows[0];
     }, 
       
     async getTopFive() {
