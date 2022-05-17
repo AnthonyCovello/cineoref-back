@@ -56,7 +56,7 @@ const datamapper = {
     async getUserById(id) {
       console.log(id);
       const query = {
-        text : `SELECT public.user.username, public.user.email, public.user.birthday, role.name AS role, grade.name AS grade, public.user.profile_picture, public.user.created_at, public.user.updated_at
+        text : `SELECT public.user.username, public.user.email, to_char(public.user.birthday, 'dd/mm/yyyy') as birthday, role.name AS role, grade.name AS grade, public.user.profile_picture, to_char(public.user.created_at, 'dd/mm/yyyy') as creation_date, to_char(public.user.updated_at, 'dd/mm/yyyy') as update_date
         FROM "user" 
         JOIN role
         ON public.user.role_id = role.id
@@ -99,7 +99,7 @@ const datamapper = {
     
     async getUsers() {
       const query = {
-        text : `SELECT public.user.id, username, created_at, role.name AS role, grade.name AS grade FROM "user"
+        text : `SELECT public.user.id, username, to_char(created_at, 'dd/mm/yyyy'), role.name AS role, grade.name AS grade FROM "user"
         JOIN "grade"
         ON grade.id = public.user.grade_id
         JOIN "role"
@@ -138,7 +138,7 @@ const datamapper = {
 
     async getContribById(id) {
       const query = {
-        text : `SELECT reference.id, reference.ref, show.name AS show, show.category, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, reference.created_at
+        text : `SELECT reference.id, reference.ref, show.name AS show, show.category, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, to_char(reference.created_at, 'dd/mm/yyyy')
         FROM public.reference
         JOIN public.show
         on reference.show_id = show.id

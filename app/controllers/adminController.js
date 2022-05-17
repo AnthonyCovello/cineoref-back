@@ -22,7 +22,14 @@ const controller = {
         const id = req.params.id
         const form = await dataMapper.getEditForm(id)
         res.json(form)
-    }
+    },
+
+    async editFormRef(req,res,next){
+        const form = req.body
+        console.log(form);
+        const ref = form.ref
+        const editRef = zae
+    },
 
 
 
