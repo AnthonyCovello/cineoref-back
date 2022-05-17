@@ -162,7 +162,6 @@ const datamapper = {
       async function encrypt() {
         const hash = await bcrypt.hash(user.password, 10)
         return postUser = {
-          username: user.username,
           email: user.email,
           birthday: user.birthday,
           password: hash
@@ -187,12 +186,11 @@ const datamapper = {
     const email = escapeRegExp(emailpostUser)
       const query = {
         text : `UPDATE public.user
-                   SET  "username" = $1,
-                            "email" = $2,
-                            "birthday" = $3,
-                            "password" = $4
-                            where id = $5;`,
-        values : [postUser.username, email, postUser.birthday, postUser.password, user.id]
+                   SET "email" = $1,
+                            "birthday" = $2,
+                            "password" = $3
+                            where id = $4;`,
+        values : [email, postUser.birthday, postUser.password, user.id]
       }
       const result = await client.query(query)
       return result
@@ -400,9 +398,7 @@ const datamapper = {
     },
 
 
-   async getRefByCategory(param) {
-    temp_param = param
-    console.log(temp_param);
+   async getRefByCategory(id) {
       const query = {
         text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
         FROM public.reference
@@ -414,16 +410,16 @@ const datamapper = {
         on reference.character_id = public.character.id
         JOIN public.user
 		    on reference.user_id = public.user.id
-        WHERE show.category ='` + temp_param + `'
-        AND status = 'true';`
+        WHERE show.id = $1
+        AND status = 'true';`,
+        values : [id]
       }
       const result = await client.query(query);
      return result.rows
    },
   
-   async getRefByArtist(param) {
+   async getRefByArtist(id) {
      
-    const temp_param = param
     const query = {
       text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
       FROM public.reference
@@ -435,17 +431,16 @@ const datamapper = {
       on reference.character_id = public.character.id
       JOIN public.user
 		on reference.user_id = public.user.id
-      WHERE artist.name ='` + temp_param + `'
-      AND status = 'true';`
+      WHERE artist.name = $1
+      AND status = 'true';`,
+      values : [id]
     }
     const result = await client.query(query);
    return result.rows
  },
 
- async getRefByCharacter(param) {
+ async getRefByCharacter(id) {
     
-  const temp_param = param
-  console.log(temp_param);
   const query = {
     text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
     FROM public.reference
@@ -457,8 +452,10 @@ const datamapper = {
     on reference.character_id = public.character.id
     JOIN public.user
 		on reference.user_id = public.user.id
-    WHERE character.name ='` + temp_param + `'
-    AND status = 'true';`
+    WHERE character.name = $1
+    AND status = 'true';`,
+
+    values: [id]
   }
   const result = await client.query(query);
  return result.rows

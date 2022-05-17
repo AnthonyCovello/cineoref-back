@@ -82,23 +82,23 @@ const controller = {
     },
     
     async getByCategory(req, res, next) {
-        const categories = req.params.params;
-        console.log(categories);
-        const result = await dataMapper.getRefByCategory(categories)
+        const id = req.params.id;
+        console.log(id);
+        const result = await dataMapper.getRefByCategory(id)
         res.json(result)
     },
 
     async getByArtist(req, res, next) {
-        const artist = req.params.params;
-        console.log(artist);
-        const result = await dataMapper.getRefByArtist(artist)
+        const id = req.params.id;
+        console.log(id);
+        const result = await dataMapper.getRefByArtist(id)
         res.json(result)
     },
 
     async getByCharacter(req, res, next) {
-        const character = req.params.params;
-        console.log(character);
-        const result = await dataMapper.getRefByCharacter(character)
+        const id = req.params.id;
+        console.log(id);
+        const result = await dataMapper.getRefByCharacter(id)
         res.json(result)
     },
 
