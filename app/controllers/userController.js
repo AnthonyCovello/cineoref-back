@@ -99,6 +99,7 @@ const controller = {
       res.json({ 
         logged: true, 
         pseudo: user.username,
+        profile_picture: checkResult.profile_picture,
         user_id: id,
         role,
         token: jwt.sign(jwtContent, secretKey, jwtOptions),
