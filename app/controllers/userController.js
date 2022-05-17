@@ -28,7 +28,11 @@ const controller = {
           } 
           const getRole = await dataMapper.getUserByName(user)
           const role = getRole.role
-          const jwtToken = jwt.sign(user, secretKey)
+          const jwtToken = jwt.sign({
+            exp:Math.floor(Date.now() / 1000) + (60 * 60),
+            user
+          },
+            secretKey,);
             console.log(jwtToken);
           
           const jwtContent = {
@@ -37,7 +41,7 @@ const controller = {
           };
           const jwtOptions = { 
              algorithm: 'HS256', 
-             expiresIn: '3h' 
+             expiresIn: '1h' 
             };
           
           
@@ -77,7 +81,11 @@ const controller = {
             message :"Pseudo ou mot de passe incorrect"
           })
         } else if (match) {
-        const jwtToken = jwt.sign(user, secretKey);
+        const jwtToken = jwt.sign({
+          exp:Math.floor(Date.now() / 1000) + (60 * 60),
+          user
+        },
+          secretKey,);
             console.log(jwtToken);
         const jwtContent = {
           user_id: id,
@@ -85,7 +93,7 @@ const controller = {
         };
         const jwtOptions = { 
           algorithm: 'HS256', 
-          expiresIn: '3h' 
+          expiresIn: '1h' 
         }
       console.log('<< 200', user.username);
       res.json({ 
