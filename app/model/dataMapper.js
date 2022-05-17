@@ -450,7 +450,7 @@ const datamapper = {
 
    async getRefByCategory(id) {
       const query = {
-        text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+        text : `SELECT reference.id, reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
         FROM public.reference
         JOIN public.show
         on reference.show_id = show.id
