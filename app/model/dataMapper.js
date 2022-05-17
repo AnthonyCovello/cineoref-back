@@ -138,7 +138,7 @@ const datamapper = {
 
     async getContribById(id) {
       const query = {
-        text : `SELECT reference.id, reference.ref, show.name AS show, show.category, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, to_char(reference.created_at, 'dd/mm/yyyy')
+        text : `SELECT reference.id, reference.ref, show.name AS show, show.category, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.status, to_char(reference.created_at, 'dd/mm/yyyy') as created_date
         FROM public.reference
         JOIN public.show
         on reference.show_id = show.id
@@ -369,7 +369,7 @@ const datamapper = {
 
     async getByCategory(params) {
 
-      
+
         const temp_param = params
         console.log(temp_param);
         const query = {
