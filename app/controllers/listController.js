@@ -4,11 +4,30 @@ const fetch = require("node-fetch");
 
 const jwt = require('jsonwebtoken');
 
+function escapeRegExp(param) {
+    let map = {
+        '&': '&amp;',
+         '<': '&lt;',
+         '>': '&gt;',
+         '"': '&quot;',
+         "'": '&#039;',
+         "~": '&#126',
+         "`": '&grave',
+         "-": '&minus',
+         "#": '%23',
+         "é": '&#233',
+    };
+    return param.replace(/[&<>"']/g, function(m) {return map[m];})
+}
+
 const controller = {
+
+    
     async getByCategory(req,res,next) {
         const categories = req.params.params;
+        const category = escapeRegExp(categories)
         console.log(categories);
-        const result = await dataMapper.getByCategory(categories);
+        const result = await dataMapper.getByCategory(category);
         res.json(result);
     },
 

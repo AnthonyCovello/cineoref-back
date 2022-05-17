@@ -247,6 +247,18 @@ const datamapper = {
       return createJoinCharacterShow
     },
 
+    async editCharacter(body){
+      console.log(body);
+      const query = {
+        text : `UPDATE reference
+        SET character_id = $1
+        WHERE reference.id = $2`,
+        values : [body.param_characterId, body.refId]
+      }
+      const result = await client.query(query);
+      return result.rows
+    },
+
    // --------------- ARTIST ----------
 
     async createArtist(artist) {
@@ -296,11 +308,36 @@ const datamapper = {
     const createJoinArtistShow = await client.query(query)
     return createJoinArtistShow
   },
+
+  async editArtist(body){
+    const query = {
+      text : `UPDATE reference
+      SET artist_id = $1
+      WHERE reference.id = $2`,
+      values : [body.param_artistId, body.refId]
+    }
+    const result = await client.query(query);
+    return result.rows
+  },
+  
   
 
     // --------------- SHOW ----------
 
    async createShow(show) {
+     console.log(show);
+      const query = {
+        text: `INSERT INTO "show" (name, category) VALUES ($1, $2);`,
+        values: [show.title, show.category]
+       };
+       const newShow = await client.query(query);
+        return newShow;
+    },
+    
+    async alterCreateShow(show) {
+      const form = show.form
+      const category = show.checkShow
+      console.log(form);
       const query = {
         text: `INSERT INTO "show" (name, category) VALUES ($1, $2);`,
         values: [show.title, show.category]
@@ -326,9 +363,13 @@ const datamapper = {
         WHERE reference.id = $2`,
         values : [body.param_showId, body.refId]
       }
+      const result = await client.query(query);
+      return result.rows
     },
 
     async getByCategory(params) {
+
+      
         const temp_param = params
         console.log(temp_param);
         const query = {
@@ -610,11 +651,12 @@ async deleteById(id){
 },
 
 async editRef(ref){
+  console.log(ref);
   const query = {
     text : `UPDATE public.reference
-    SET reference.ref = $1
+    SET ref = $1
     WHERE id = $2`,
-    values : [ref.ref, ref.id]
+    values : [ref.ref, ref.refId]
   }
   const result = await client.query(query)
   return result.rows

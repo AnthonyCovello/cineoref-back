@@ -40,6 +40,7 @@ router
     .get('/admin/dashboard',  routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
     .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest)) //jwToken, security.check,
     .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm)) //jwToken, security.check,
+    .patch('/admin/dashboard/editing/:id', routerWrapper(adminController.editFormRef))
     //route Put  to validate reference request
     .use(handleError);
     
