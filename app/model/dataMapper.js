@@ -624,7 +624,7 @@ async getByRecent() {
 
 async getRefById(id){
   const query = {
-    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+    text : `SELECT reference.ref, show.name AS title, public.character.name AS character, artist.name AS artist, public.user.username AS user, show.category
     FROM public.reference
     JOIN public.show
     on reference.show_id = show.id
