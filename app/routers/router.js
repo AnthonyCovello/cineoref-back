@@ -26,9 +26,9 @@ router
     .get('/listcategory/:params', routerWrapper(listController.getByCategory))
     .get('/listcategory/:params/:id/ref', routerWrapper(referenceController.getByCategory))
     .get('/listartist', routerWrapper(listController.getByArtist))
-    .get('/listartist/:params/:id/ref', routerWrapper(referenceController.getByArtist))
+    .get('/listartist/:id/ref', routerWrapper(referenceController.getByArtist))
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
-    .get('/listcharacter/:params/:id/ref', routerWrapper(referenceController.getByCharacter))
+    .get('/listcharacter/:id/ref', routerWrapper(referenceController.getByCharacter))
     .get('/ref/:id', routerWrapper(referenceController.getById))
     .delete('/ref/:id', routerWrapper(referenceController.deleteById)) //jwToken, security.check,
     .get('/mostrecent', routerWrapper(referenceController.getByRecent))

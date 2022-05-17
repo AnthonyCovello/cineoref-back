@@ -28,7 +28,29 @@ const controller = {
         const form = req.body
         console.log(form);
         const ref = form.ref
+        const refId = form.id
         const editRef = await dataMapper.editRef(ref)
+
+        const checkShow = await dataMapper.checkShowExist(form)
+        const checkedShow = Object.keys(checkShow)
+        if(checkedShow != '0'){
+            console.log("Adding Show");
+          const createShow = await dataMapper.createShow(form)
+          }
+
+
+          const showId = await dataMapper.checkShowExist(form)
+          const show_id = {};
+          for(let i = 0; i<showId.length; i++){
+              show_id['show_id_'+i] = showId[i];
+          }
+          const filtered_showId = show_id.show_id_0
+          const param_showId = filtered_showId.id
+        const editShow = await dataMapper.editShow_id({param_showId, refId})
+
+        
+
+          res.json({editRef})
     },
 
 

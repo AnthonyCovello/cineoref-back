@@ -319,6 +319,15 @@ const datamapper = {
       return checkShow.rows;
     },
 
+    async editShow_id(body){
+      const query = {
+        text : `UPDATE public.reference
+        SET show_id = $1
+        WHERE reference.id = $2`,
+        values : [body.param_showId, body.refId]
+      }
+    },
+
     async getByCategory(params) {
         const temp_param = params
         console.log(temp_param);
@@ -358,7 +367,7 @@ const datamapper = {
 
     async getEditForm(id){
       const query = {
-        text : `SELECT reference.id, reference.ref, show.name AS show_title, reference.mature, artist.name AS artist, character.name AS character
+        text : `SELECT reference.id, reference.ref, show.name AS show_title, reference.mature, artist.name AS artist, character.name AS character, show.category
         FROM public.reference
         JOIN public.show
         on reference.show_id = show.id
@@ -431,7 +440,7 @@ const datamapper = {
       on reference.character_id = public.character.id
       JOIN public.user
 		on reference.user_id = public.user.id
-      WHERE artist.name = $1
+      WHERE artist.id = $1
       AND status = 'true';`,
       values : [id]
     }
@@ -452,7 +461,7 @@ const datamapper = {
     on reference.character_id = public.character.id
     JOIN public.user
 		on reference.user_id = public.user.id
-    WHERE character.name = $1
+    WHERE character.id = $1
     AND status = 'true';`,
 
     values: [id]
@@ -599,6 +608,17 @@ async deleteById(id){
   const result = await client.query(query)
   return result.rows
 },
+
+async editRef(ref){
+  const query = {
+    text : `UPDATE public.reference
+    SET reference.ref = $1
+    WHERE id = $2`,
+    values : [ref.ref, ref.id]
+  }
+  const result = await client.query(query)
+  return result.rows
+}
 
 
 
