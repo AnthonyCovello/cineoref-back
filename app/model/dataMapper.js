@@ -187,7 +187,7 @@ const datamapper = {
       const query = {
         text : `UPDATE public.user
                    SET "email" = $1,
-                            where id = $
+                            where id = $2
                             `,
         values : [email, user.id]
       }
