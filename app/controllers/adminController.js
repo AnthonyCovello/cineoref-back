@@ -87,7 +87,7 @@ const controller = {
 
 
 
-          res.json({editRef})
+          res.json({message : "Référence mis a jour !"})
     },
 
 
