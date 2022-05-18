@@ -187,10 +187,9 @@ const datamapper = {
       const query = {
         text : `UPDATE public.user
                    SET "email" = $1,
-                            "password" = $2
-                            where id = $3
+                            where id = $
                             `,
-        values : [email, postUser.password, user.id]
+        values : [email, user.id]
       }
       const result = await client.query(query)
       return result
