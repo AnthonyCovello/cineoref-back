@@ -183,10 +183,11 @@ const datamapper = {
     }
     const emailpostUser = postUser.email
     const email = escapeRegExp(emailpostUser)
+    console.log(user.id)
       const query = {
         text : `UPDATE public.user
                    SET "email" = $1,
-                            "password" = $2,
+                            "password" = $2
                             where id = $3
                             `,
         values : [email, postUser.password, user.id]
