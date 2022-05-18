@@ -1,7 +1,6 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
 const stringSimilarity = require("string-similarity");
-const { deleteProfil } = require('../controllers/userController.js');
 const datamapper = {
     
 // ------------- USER ----------
