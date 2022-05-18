@@ -547,6 +547,7 @@ async getRefBySearchBar(search) {
    WHERE status = 'true'
    AND similarity(public.reference.ref, '%` + keyword +`%') > 0
    ORDER BY similarity(public.reference.ref, '%`+ keyword +`%') DESC
+   LIMIT 3
     `
   }
   const result = await client.query(query)
@@ -561,7 +562,8 @@ async getShowBySearchBar(search) {
    text : `SELECT show.id, show.name, show.category
    FROM public.show
    WHERE similarity(show.name, $1) >= 0.2
-   ORDER BY similarity(show.name, $1) DESC, show.name;
+   ORDER BY similarity(show.name, $1) DESC, show.name
+   LIMIT 3;
     `,
     values: [keyword]
   }
@@ -577,7 +579,8 @@ async getArtistBySearchBar(search) {
    text : `SELECT artist.id, artist.name
   FROM public.artist
   WHERE similarity(artist.name,$1)  >= 0.2
-  ORDER BY similarity(artist.name, $1) DESC, artist.name;
+  ORDER BY similarity(artist.name, $1) DESC, artist.name
+  LIMIT 3;
     `,
     values: [keyword]
   }
@@ -593,7 +596,8 @@ async getCharacterBySearchBar(search) {
    text : `SELECT character.id, character.name
    FROM public.character
    WHERE similarity(character.name, $1) >= 0.2
-   ORDER BY similarity(character.name, $1) DESC, character.name;
+   ORDER BY similarity(character.name, $1) DESC, character.name
+   LIMIT 3;
     `,
     values: [keyword]
   }
