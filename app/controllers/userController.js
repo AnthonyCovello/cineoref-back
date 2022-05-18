@@ -41,7 +41,7 @@ const controller = {
           };
           const jwtOptions = { 
              algorithm: 'HS256', 
-             expiresIn: '1h' 
+             maxAge: '1h' 
             };
           
           
@@ -94,7 +94,7 @@ const controller = {
         };
         const jwtOptions = { 
           algorithm: 'HS256', 
-          expiresIn: '1h' 
+          maxAge: '1h' 
         }
       console.log('<< 200', user.username);
       res.json({ 
