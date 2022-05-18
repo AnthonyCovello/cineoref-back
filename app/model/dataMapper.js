@@ -545,7 +545,7 @@ async getRefBySearchBar(search) {
    JOIN public.user
    on reference.user_id = public.user.id
    WHERE status = 'true'
-   AND similarity(public.reference.ref, '%` + keyword +`%') >= 0.2
+   AND similarity(public.reference.ref, '%` + keyword +`%') > 0
    ORDER BY similarity(public.reference.ref, '%`+ keyword +`%') DESC
     `
   }
