@@ -40,8 +40,7 @@ const controller = {
             role
           };
           const jwtOptions = { 
-             algorithm: 'HS256', 
-             maxAge: '1h' 
+             algorithm: 'HS256'
             };
           
           
@@ -93,8 +92,7 @@ const controller = {
           role,
         };
         const jwtOptions = { 
-          algorithm: 'HS256', 
-          maxAge: '1h' 
+          algorithm: 'HS256'
         }
       console.log('<< 200', user.username);
       res.json({ 
