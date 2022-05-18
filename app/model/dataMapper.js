@@ -163,7 +163,6 @@ const datamapper = {
         const hash = await bcrypt.hash(user.password, 10)
         return postUser = {
           email: user.email,
-          birthday: user.birthday,
           password: hash
         }
       }
@@ -187,10 +186,10 @@ const datamapper = {
       const query = {
         text : `UPDATE public.user
                    SET "email" = $1,
-                            "birthday" = $2,
-                            "password" = $3
-                            where id = $4;`,
-        values : [email, postUser.birthday, postUser.password, user.id]
+                            "password" = $2,
+                            where id = $3
+                            `,
+        values : [email, postUser.password, user.id]
       }
       const result = await client.query(query)
       return result
