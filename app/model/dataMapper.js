@@ -159,14 +159,14 @@ const datamapper = {
 
     async editProfil(user){
       console.log(user);
-      async function encrypt() {
-        const hash = await bcrypt.hash(user.password, 10)
-        return postUser = {
-          email: user.email,
-          password: hash
-        }
-      }
-       await encrypt()
+      // async function encrypt() {
+      //   const hash = await bcrypt.hash(user.password, 10)
+      //   return postUser = {
+      //     email: user.email,
+          // password: hash
+      //   }
+      // }
+      //  await encrypt()
        function escapeRegExp(param) {
         let map = {
             '&': '&amp;',
@@ -181,7 +181,7 @@ const datamapper = {
         };
         return param.replace(/[&<>"']/g, function(m) {return map[m];})
     }
-    const emailpostUser = postUser.email
+    const emailpostUser = user.email
     const email = escapeRegExp(emailpostUser)
     console.log(user.id)
       const query = {
