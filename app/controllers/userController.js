@@ -48,6 +48,7 @@ const controller = {
           res.status(200).json({ 
             logged: true, 
             pseudo: user.username,
+            profile_picture: getRole.profile_picture,
             user_id: getRole.id,
             role,
             token: jwt.sign(jwtContent, secretKey, jwtOptions),
