@@ -35,7 +35,8 @@ router
     .get('/usertopfive', routerWrapper(userController.getTopFive))
     .get('/search/:params', routerWrapper(referenceController.getBySearchBar))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
-    .patch('/user/edit', routerWrapper(userController.editProfil))
+    .patch('/user/edit/', routerWrapper(userController.editProfil))
+    .delete('/user/delete/:id', routerWrapper(userController.deleteProfil))
     .get('/random', routerWrapper(referenceController.getByRandom))
     .get('/admin/dashboard',  routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
     .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest)) //jwToken, security.check,

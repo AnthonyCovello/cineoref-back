@@ -1,6 +1,7 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
 const stringSimilarity = require("string-similarity");
+const { deleteProfil } = require('../controllers/userController.js');
 const datamapper = {
     
 // ------------- USER ----------
@@ -190,6 +191,16 @@ const datamapper = {
                             where id = $2
                             `,
         values : [email, user.id]
+      }
+      const result = await client.query(query)
+      return result
+    },
+
+    async deleteProfil(id) {
+      const query = {
+        text : `DELETE FROM public.user
+                  WHERE id = $1`,
+        values : [id]
       }
       const result = await client.query(query)
       return result

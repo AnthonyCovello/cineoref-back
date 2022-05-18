@@ -135,6 +135,12 @@ const controller = {
       // return res.status(409).json({message :"Pseudo déjà existant"})
     },
 
+    async deleteProfil(req,res,next){
+      const id = req.params.id
+      const deleteProfil = await dataMapper.deleteProfil(id)
+      return res.status(200).json({deleteProfil, message : "Compte supprimé"})
+    },
+
 
 
 
