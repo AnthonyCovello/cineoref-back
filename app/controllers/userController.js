@@ -28,21 +28,16 @@ const controller = {
           } 
           const getRole = await dataMapper.getUserByName(user)
           const role = getRole.role
-          const jwtToken = jwt.sign({
-            exp:Math.floor(Date.now() / 1000) + (60 * 60),
-            user
-          },
-            secretKey,);
-            console.log(jwtToken);
           
           const jwtContent = {
             user_id: getRole.id,
             role
           };
           const jwtOptions = { 
-             algorithm: 'HS256'
-            };
-          
+            algorithm: 'HS256',
+            expiresIn : '30s'
+          }
+          const token = jwt.sign(jwtContent, secretKey, jwtOptions)
           
           res.status(200).json({ 
             logged: true, 
@@ -50,7 +45,7 @@ const controller = {
             profile_picture: getRole.profile_picture,
             user_id: getRole.id,
             role,
-            token: jwt.sign(jwtContent, secretKey, jwtOptions),
+            token,
             message: "Compte créé et connecté"
             
           })
