@@ -81,15 +81,15 @@ const controller = {
             message :"Pseudo ou mot de passe incorrect"
           })
         } else if (match) {
-        
-        const jwtContent = {
-          user_id: id,
-          role,
-        };
-        const jwtOptions = { 
-          algorithm: 'HS256',
-          exp:Math.floor(Date.now() / 1000) + (60 * 60)
-        }
+          const jwtContent = {
+            user_id: id,
+            role,
+          };
+          const jwtOptions = { 
+            algorithm: 'HS256',
+            exp:Math.floor(Date.now() / 1000) + (60 * 60)
+          }
+          const token = jwt.sign(jwtContent, secretKey, jwtOptions)
       console.log('<< 200', user.username);
       res.json({ 
         logged: true, 
@@ -97,7 +97,7 @@ const controller = {
         profile_picture: checkResult.profile_picture,
         user_id: id,
         role,
-        token: jwt.sign(jwtContent, secretKey, jwtOptions),
+        token
         })
         }
       
