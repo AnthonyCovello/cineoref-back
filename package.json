@@ -30,6 +30,7 @@
     "express-session": "^1.17.2",
     "graphql": "^16.4.0",
     "jsonwebtoken": "^8.5.1",
+    "parse": "^3.4.2",
     "pg": "^8.7.3",
     "string-similarity": "^4.0.4"
   }
