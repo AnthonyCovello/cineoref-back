@@ -672,7 +672,7 @@ async getCharacterBySearchBar(search) {
 
 async getByRecent() {
   const query = {
-    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user
+    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.id AS ref_id, reference.character_id, reference.show_id, reference.artist_id
     FROM public.reference
     JOIN public.show
     on reference.show_id = show.id
