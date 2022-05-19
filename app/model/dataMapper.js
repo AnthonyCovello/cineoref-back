@@ -1,6 +1,7 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
 const stringSimilarity = require("string-similarity");
+const { getByNote } = require('../controllers/referenceController.js');
 
 function escapeRegExp(param) {
   let map = {
@@ -725,6 +726,25 @@ async editRef(ref){
     SET ref = $1
     WHERE id = $2`,
     values : [ref.ref, ref.refId]
+  }
+  const result = await client.query(query)
+  return result.rows
+},
+
+async getByNote(){
+  const query = {
+    text : `SELECT reference.ref, show.name AS show, public.character.name AS character, artist.name AS artist, public.user.username AS user, reference.id AS ref_id, reference.character_id, reference.show_id, reference.artist_id
+    FROM public.reference
+    JOIN public.show
+    on reference.show_id = show.id
+    JOIN public.artist
+    on reference.artist_id = artist.id
+    JOIN public.character
+    on reference.character_id = public.character.id
+    JOIN public.user
+    on reference.user_id = public.user.id
+    WHERE status = 'true'
+    LIMIT 5`
   }
   const result = await client.query(query)
   return result.rows

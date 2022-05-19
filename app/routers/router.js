@@ -33,6 +33,7 @@ router
     .delete('/ref/:id', security.check, routerWrapper(referenceController.deleteById)) //jwToken, security.check,
     .get('/mostrecent', routerWrapper(referenceController.getByRecent))
     .get('/usertopfive', routerWrapper(userController.getTopFive))
+    .get('mostrated', routerWrapper(referenceController.getByNote))
     .get('/search/:params', routerWrapper(referenceController.getBySearchBar))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
     .patch('/user/edit/',  routerWrapper(userController.editProfil)) //jwToken

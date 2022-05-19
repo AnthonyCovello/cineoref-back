@@ -3,6 +3,7 @@ const APIError = require('../handlers/APIError');
 const fetch = require("node-fetch");
 const stringSimilarity = require("string-similarity");
 const jwt = require('jsonwebtoken');
+const datamapper = require('../model/dataMapper.js');
 
 const controller = {
 
@@ -78,7 +79,7 @@ const controller = {
         const submitRef = await dataMapper.createRef({reference, userId, param_showId, param_artistId, param_characterId})
         res.json({
             submitRef, 
-            message: "Citation ajoutée."})
+            message: "Citation en attente de validation."})
     },
     
     async getByCategory(req, res, next) {
@@ -149,6 +150,11 @@ const controller = {
         const id = req.params.id
         const result = await dataMapper.deleteById(id)
         res.json({message : "Référence effacé"})
+    },
+
+    async getByNote(req,res,next){
+        const result = await datamapper.getByNote()
+        res.json(result)
     },
 
 
