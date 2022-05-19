@@ -1,7 +1,6 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
 const stringSimilarity = require("string-similarity");
-const { getByNote } = require('../controllers/referenceController.js');
 
 function escapeRegExp(param) {
   let map = {
