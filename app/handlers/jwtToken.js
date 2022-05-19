@@ -23,6 +23,7 @@ const jwToken = (req, res, next) => {
     const token =
       req.body.token || req.query.token || req.headers["x-access-token"];
   console.log(token);
+  console.log(req.headers);
     if (!token) {
       return res.status(403).send("A token is required for authentication");
     }
