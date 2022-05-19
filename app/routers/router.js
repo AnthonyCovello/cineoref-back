@@ -20,7 +20,7 @@ router
     // .post('/devonly/show', routerWrapper(showController.createShow) )
     // .post('/devonly/createArtist', routerWrapper(showController.createArtist))
     // .post('/devonly/createCharacter', routerWrapper(showController.createCharacter))
-    .post('/form/submit', routerWrapper(referenceController.submitRef))
+    .post('/form/submit', jwToken, routerWrapper(referenceController.submitRef))
     // .get('/devonly/checkshow', routerWrapper(showController.checkShow))
     // .get('/devonly/checkartist', routerWrapper(listController.checkArtist))
     .get('/listcategory/:params', routerWrapper(listController.getByCategory))
@@ -30,18 +30,18 @@ router
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
     .get('/listcharacter/:id/ref', routerWrapper(referenceController.getByCharacter))
     .get('/ref/:id', routerWrapper(referenceController.getById))
-    .delete('/ref/:id', routerWrapper(referenceController.deleteById)) //jwToken, security.check,
+    .delete('/ref/:id', jwToken, security.check, routerWrapper(referenceController.deleteById)) //jwToken, security.check,
     .get('/mostrecent', routerWrapper(referenceController.getByRecent))
     .get('/usertopfive', routerWrapper(userController.getTopFive))
     .get('/search/:params', routerWrapper(referenceController.getBySearchBar))
     .get('/user/profil/:id', routerWrapper(userController.getUserById))
-    .patch('/user/edit/', routerWrapper(userController.editProfil))
-    .delete('/user/delete/:id', routerWrapper(userController.deleteProfil))
+    .patch('/user/edit/', jwToken, routerWrapper(userController.editProfil))
+    .delete('/user/delete/:id', jwToken, routerWrapper(userController.deleteProfil))
     .get('/random', routerWrapper(referenceController.getByRandom))
-    .get('/admin/dashboard',  routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
-    .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest)) //jwToken, security.check,
-    .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm)) //jwToken, security.check,
-    .patch('/admin/dashboard/editing/:id', routerWrapper(adminController.editFormRef))
+    .get('/admin/dashboard', jwToken, security.check, routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
+    .patch('/admin/dashboard/validating/:id', jwToken, security.check, routerWrapper(adminController.validateRequest)) //jwToken, security.check,
+    .get('/admin/dashboard/editing/:id', jwToken, security.check, routerWrapper(adminController.getEditForm)) //jwToken, security.check,
+    .patch('/admin/dashboard/editing/:id', jwToken, security.check, routerWrapper(adminController.editFormRef))
     //route Put  to validate reference request
     .use(handleError);
     
