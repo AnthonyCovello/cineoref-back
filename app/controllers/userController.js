@@ -87,7 +87,7 @@ const controller = {
           };
           const jwtOptions = { 
             algorithm: 'HS256',
-            exp:Math.floor(Date.now() / 1000) + (60 * 60)
+            expiresIn : '30s'
           }
           const token = jwt.sign(jwtContent, secretKey, jwtOptions)
       console.log('<< 200', user.username);
