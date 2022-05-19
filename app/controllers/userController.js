@@ -128,9 +128,18 @@ const controller = {
 
     async editProfil(req,res,next){
       const user = req.body
-      console.log('Updating profil');
-      const editProfil = await dataMapper.editProfil(user)
-      return res.status(200).json({editProfil, message : "Profile mis a jour"})
+      if (user.email && user.password) {
+        console.log("update email && password");
+        const editProfil = await dataMapper.editProfil(user)
+      }
+      else if (user.email) {
+        console.log("update email")
+        const editEmail = await dataMapper.editEmail(user)
+      } else if (user.password) {
+        console.log("update password");
+        const editPassword = await dataMapper.editPassword(user)
+      }
+      return res.status(200).json({message : "Profile mis a jour"})
       // return res.status(409).json({message :"Pseudo déjà existant"})
     },
 

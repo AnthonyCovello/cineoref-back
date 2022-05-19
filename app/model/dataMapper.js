@@ -1,6 +1,21 @@
 const client = require('./dbClient.js');
 const bcrypt = require('bcryptjs');
 const stringSimilarity = require("string-similarity");
+
+function escapeRegExp(param) {
+  let map = {
+      '&': '&amp;',
+       '<': '&lt;',
+       '>': '&gt;',
+       '"': '&quot;',
+       "'": '&#039;',
+       "~": '&#126',
+       "`": '&grave',
+       "-": '&minus',
+       "#": '%23',
+  };
+  return param.replace(/[&<>"']/g, function(m) {return map[m];})
+}
 const datamapper = {
     
 // ------------- USER ----------
@@ -159,28 +174,45 @@ const datamapper = {
 
     async editProfil(user){
       console.log(user);
-      // async function encrypt() {
-      //   const hash = await bcrypt.hash(user.password, 10)
-      //   return postUser = {
-      //     email: user.email,
-          // password: hash
-      //   }
-      // }
-      //  await encrypt()
-       function escapeRegExp(param) {
-        let map = {
-            '&': '&amp;',
-             '<': '&lt;',
-             '>': '&gt;',
-             '"': '&quot;',
-             "'": '&#039;',
-             "~": '&#126',
-             "`": '&grave',
-             "-": '&minus',
-             "#": '%23',
-        };
-        return param.replace(/[&<>"']/g, function(m) {return map[m];})
-    }
+      async function encrypt() {
+        const hash = await bcrypt.hash(user.password, 10)
+        return postUser = {
+          email: user.email,
+          password: hash
+        }
+      }
+       await encrypt()
+    //    function escapeRegExp(param) {
+    //     let map = {
+    //         '&': '&amp;',
+    //          '<': '&lt;',
+    //          '>': '&gt;',
+    //          '"': '&quot;',
+    //          "'": '&#039;',
+    //          "~": '&#126',
+    //          "`": '&grave',
+    //          "-": '&minus',
+    //          "#": '%23',
+    //     };
+    //     return param.replace(/[&<>"']/g, function(m) {return map[m];})
+    // }
+    const emailpostUser = user.email
+    const email = escapeRegExp(emailpostUser)
+    console.log(user.id)
+      const query = {
+        text : `UPDATE public.user
+                   SET "email" = $1,
+                            "password" = $2
+                            where id = $3
+                            `,
+        values : [email, postUser.password, user.id]
+      }
+      const result = await client.query(query)
+      return result
+    },
+
+    async editEmail(user){
+      console.log(user);
     const emailpostUser = user.email
     const email = escapeRegExp(emailpostUser)
     console.log(user.id)
@@ -190,6 +222,29 @@ const datamapper = {
                             where id = $2
                             `,
         values : [email, user.id]
+      }
+      const result = await client.query(query)
+      return result
+    },
+
+    async editPassword(user){
+      console.log(user);
+      async function encrypt() {
+        const hash = await bcrypt.hash(user.password, 10)
+        return postUser = {
+          password: hash
+        }
+      }
+       await encrypt()
+   
+    console.log(user.id)
+      const query = {
+        text : `UPDATE public.user
+                   SET 
+                            "password" = $1
+                            where id = $2
+                            `,
+        values : [postUser.password, user.id]
       }
       const result = await client.query(query)
       return result
@@ -637,7 +692,7 @@ async getByRecent() {
 
 async getRefById(id){
   const query = {
-    text : `SELECT reference.ref, show.name AS title, public.character.name AS character, artist.name AS artist, public.user.username AS user, show.category
+    text : `SELECT reference.ref, show.name AS title, public.character.name AS character, artist.name AS artist, public.user.username AS user, show.category, reference.id as ref_id, reference.user_id, reference.artist_id, reference.character_id, reference.show_id
     FROM public.reference
     JOIN public.show
     on reference.show_id = show.id
