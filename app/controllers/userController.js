@@ -35,7 +35,7 @@ const controller = {
           };
           const jwtOptions = { 
             algorithm: 'HS256',
-            expiresIn : '30s'
+            expiresIn : '3600'
           }
           const token = jwt.sign(jwtContent, secretKey, jwtOptions)
           
@@ -82,7 +82,7 @@ const controller = {
           };
           const jwtOptions = { 
             algorithm: 'HS256',
-            expiresIn : '30s'
+            expiresIn : '3600s'
           }
           const token = jwt.sign(jwtContent, secretKey, jwtOptions)
       console.log('<< 200', user.username);
