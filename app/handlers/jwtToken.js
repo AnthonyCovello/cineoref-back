@@ -5,7 +5,7 @@ const jwToken = (req, res, next) => {
     
     const decoded = req.body.token || req.query.token || req.headers["x-access-token"];
 
-    if(!token) {
+    if(!decoded) {
         return res.status(403).send("Un token d'indentification est requis")
     }
     try {
