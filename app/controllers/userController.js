@@ -81,18 +81,14 @@ const controller = {
             message :"Pseudo ou mot de passe incorrect"
           })
         } else if (match) {
-        const jwtToken = jwt.sign({
-          exp:Math.floor(Date.now() / 1000) + (60 * 60),
-          user
-        },
-          secretKey,);
-            console.log(jwtToken);
+        
         const jwtContent = {
           user_id: id,
           role,
         };
         const jwtOptions = { 
-          algorithm: 'HS256'
+          algorithm: 'HS256',
+          exp:Math.floor(Date.now() / 1000) + (60 * 60)
         }
       console.log('<< 200', user.username);
       res.json({ 
@@ -139,7 +135,7 @@ const controller = {
         console.log("update password");
         const editPassword = await dataMapper.editPassword(user)
       }
-      return res.status(200).json({message : "Profile mis a jour"})
+      return res.status(200).json({ message : "Profile mis a jour"})
       // return res.status(409).json({message :"Pseudo déjà existant"})
     },
 

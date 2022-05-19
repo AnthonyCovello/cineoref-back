@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken');
 const secretKey = "mange tes morts";
 
 const jwToken = (req, res, next) => {
-    
+    console.log(req.body.token);
+    console.log(req.query.token);
+    console.log(req.headers);
     const decoded = req.body.token || req.query.token || req.headers["x-access-token"];
 
     if(!decoded) {
