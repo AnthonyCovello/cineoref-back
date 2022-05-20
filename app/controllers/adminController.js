@@ -5,25 +5,45 @@ const fetch = require("node-fetch");
 const jwt = require('jsonwebtoken');
 
 const controller = {
-
+/**
+ * Throw the data to fill the dasboard on the admin page.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async getAdminDashboard(req, res, next) {
         const request = await dataMapper.getRequest();
         const profils = await dataMapper.getUsers();
         res.json({request, profils})
     },
-
+/**
+ * Changes the 'status' from false to true to render the citations in lists
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async validateRequest(req,res,next){
         const id = req.params.id
         const validate = await dataMapper.validateRequest(id)
         res.status(200).json({validate, message: "Requête validée."})
     },
-
+/**
+ * Get the data to render the edit form
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async getEditForm(req,res,next) {
         const id = req.params.id
         const form = await dataMapper.getEditForm(id)
         res.json(form)
     },
-
+/**
+ * Allow the admin to correct or modify the reference submitted
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async editFormRef(req,res,next){
         const form = req.body
         console.log(form);

@@ -6,7 +6,12 @@ const jwt = require('jsonwebtoken');
 const datamapper = require('../model/dataMapper.js');
 
 const controller = {
-
+/**
+ * Check if show/artist/character exists, create them is it doesn't, get their id, create the reference, then link the matching foreign keys.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async submitRef (req,res, next) {
         const ref = req.body;
         console.log(ref);
@@ -81,33 +86,58 @@ const controller = {
             submitRef, 
             message: "Citation en attente de validation."})
     },
-    
+    /**
+     * Render the page with the reference details from the category list
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getByCategory(req, res, next) {
         const id = req.params.id;
         console.log(id);
         const result = await dataMapper.getRefByCategory(id)
         res.json(result)
     },
-
+/**
+     * Render the page with the reference details from the artist list
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getByArtist(req, res, next) {
         const id = req.params.id;
         console.log(id);
         const result = await dataMapper.getRefByArtist(id)
         res.json(result)
     },
-
+/**
+     * Render the page with the reference details from the character list
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getByCharacter(req, res, next) {
         const id = req.params.id;
         console.log(id);
         const result = await dataMapper.getRefByCharacter(id)
         res.json(result)
     },
-
+/**
+ * Render a single random reference each time the home page is shown or when the button is clicked
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async getByRandom(req, res, next) {
         const result = await dataMapper.getRefByRandom()
         res.json(result)
     },
-
+/**
+ * Render various results depending on the key words submitted
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async getBySearchBar(req, res, next) {
         const param = req.params.params;
         function escapeRegExp(param) {
@@ -134,24 +164,44 @@ const controller = {
         
         res.json({getRefBySearchBar, getShowBySearchBar, getArtistBySearchBar, getCharacterBySearchBar})
     },
-    
+    /**
+     * Render the list of the most recent reference submitted.
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getByRecent(req,res,next) {
         const result = await dataMapper.getByRecent();
         res.json(result)
     },
-
+    /**
+     * Render the details of the reference
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getById(req,res,next) {
         const id = req.params.id
         const result = await dataMapper.getRefById(id)
         res.json(result)
     },
-
+/**
+ * Delete a reference
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async deleteById(req,res,next){
         const id = req.params.id
         const result = await dataMapper.deleteById(id)
         res.json({message : "Référence effacé"})
     },
-
+/**
+ * Placeholder for the most rated list
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async getByNote(req,res,next){
         const result = await datamapper.getByNote()
         res.json(result)

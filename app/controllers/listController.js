@@ -7,13 +7,23 @@ const jwt = require('jsonwebtoken');
 
 const controller = {
 
-    
+    /**
+     * Render the list of show sorted by a certain category
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getByCategory(req,res,next) {
         const categories = req.params.params;
         const result = await dataMapper.getByCategory(categories);
         res.json(result);
     },
-
+/**
+ * Render the list of artists
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
     async getByArtist(req,res,next) {
         const categories = req.params.params;
         console.log(categories);
@@ -21,7 +31,12 @@ const controller = {
         res.json(result);
     },
 
-    
+    /**
+     * Render the list of characters
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async getByCharacter(req,res,next) {
         const categories = req.params.params;
         console.log(categories);

@@ -13,7 +13,6 @@ const controller = {
    * @param {res}
    */
     async createUser(req,res, next) {
-        // User contient email / username / password
         const user = req.body;
         if (!(user.username && user.email && user.birthday && user.password)) {
           res.status(400).send("Tout les champs sont nécessaire");
@@ -118,19 +117,33 @@ const controller = {
     })
   }
   },
-
+/**
+ * Render the profile page, with the user's contribution
+ * @param {req} 
+ * @param {res}  
+ */
     async getUserById(req,res) {
         const id = req.params.id;
         const user = await dataMapper.getUserById(id);
         const contribution = await dataMapper.getContribById(id)
         res.json({user, contribution});
     },
-
+/**
+ * Render the top5 of contributors on the home page
+ * @param {*} req 
+ * @param {*} res 
+ */
     async getTopFive(req,res) {
       const result = await dataMapper.getTopFive();
       res.json(result)
     },
-
+/**
+ * Allow the user to edit it's profile
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
     async editProfil(req,res,next){
       const user = req.body
       if (user.email && user.password) {
@@ -147,7 +160,13 @@ const controller = {
       return res.status(200).json({ message : "Profile mis a jour"})
       // return res.status(409).json({message :"Pseudo déjà existant"})
     },
-
+  /**
+   * Give the user permission to delete it's profile
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   * @returns 
+   */
     async deleteProfil(req,res,next){
       const id = req.params.id
       const deleteProfil = await dataMapper.deleteProfil(id)
