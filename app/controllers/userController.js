@@ -62,11 +62,20 @@ const controller = {
    */
     async logUser(req,res) {
       const user = req.body;
+      
+      if(!user.username){
+        return res.status(401).json({message : "Pseudo ou mot de passe incorrect"})
+      }
+      if(!user.password){
+        return res.status(401).json({message : "Pseudo ou mot de passe incorrect"})
+      }
+
       const checkResult = await dataMapper.loginUser(user);
       const id = checkResult.id
       const getRole = await dataMapper.getUserById(id)
       const role = getRole.role
-      console.log(role);
+
+      
       if (checkResult) {
       bcrypt.compare(user.password, checkResult.password, function(err, match){
         if (err) {
