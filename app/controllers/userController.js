@@ -62,7 +62,7 @@ const controller = {
    */
     async logUser(req,res) {
       const user = req.body;
-      
+
       if(!user.username){
         return res.status(401).json({message : "Pseudo ou mot de passe incorrect"})
       }
@@ -71,6 +71,11 @@ const controller = {
       }
 
       const checkResult = await dataMapper.loginUser(user);
+
+      if(!checkResult){
+        return res.status(401).json({message : "Pseudo ou mot de passe incorrect"})
+      }
+
       const id = checkResult.id
       const getRole = await dataMapper.getUserById(id)
       const role = getRole.role
