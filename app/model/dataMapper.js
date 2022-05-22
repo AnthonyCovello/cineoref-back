@@ -611,7 +611,7 @@ async getRefBySearchBar(search) {
    WHERE status = 'true'
    AND similarity(public.reference.ref, '%` + keyword +`%') > 0
    ORDER BY similarity(public.reference.ref, '%`+ keyword +`%') DESC
-   LIMIT 3
+   LIMIT 5
     `
   }
   const result = await client.query(query)
