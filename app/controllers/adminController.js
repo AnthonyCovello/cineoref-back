@@ -62,51 +62,57 @@ const controller = {
               }
         }
 
-
-          const showId = await dataMapper.checkShowExist(form)
-          const show_id = {};
-          for(let i = 0; i<showId.length; i++){
-              show_id['show_id_'+i] = showId[i];
-          }
-          const filtered_showId = show_id.show_id_0
-          const param_showId = filtered_showId.id
-          console.log(refId);
-        const editShow = await dataMapper.editShow_id({param_showId, refId})
-
-
-
-      const checkCharacter = await dataMapper.checkCharacterExist(form)
-      const checkedCharacter = Object.keys(checkCharacter)
-      if(checkedCharacter != '0'){
-          console.log("Adding Character");
-        const createArtist = await dataMapper.createCharacter(form)
-      }
-
-      const characterId = await dataMapper.checkCharacterExist(form)
-      const character_id = {};
-      for(let i = 0; i<characterId.length; i++){
-          character_id['character_id_'+i] = characterId[i];
+        if(form.title){
+            
+            const showId = await dataMapper.checkShowExist(form)
+            const show_id = {};
+            for(let i = 0; i<showId.length; i++){
+                show_id['show_id_'+i] = showId[i];
+            }
+            const filtered_showId = show_id.show_id_0
+            const param_showId = filtered_showId.id
+            console.log(refId);
+          const editShow = await dataMapper.editShow_id({param_showId, refId})
         }
-        const filtered_characterId = character_id.character_id_0
-        const param_characterId = filtered_characterId.id
-     const editCharacter = await dataMapper.editCharacter({param_characterId, refId})
 
 
-     const checkArtist = await dataMapper.checkArtistExist(form)
-     const checkedArtist = Object.keys(checkArtist)
-     if(checkedArtist != '0'){
-         console.log("Adding Artist");
-       const createArtist = await dataMapper.createArtist(form)
-     } 
+        if(form.character){
 
-     const artistId = await dataMapper.checkArtistExist(form)
-              const artist_id = {};
-              for(let i = 0; i<artistId.length; i++){
-                  artist_id['artist_id_'+i] = artistId[i];
+            const checkCharacter = await dataMapper.checkCharacterExist(form)
+            const checkedCharacter = Object.keys(checkCharacter)
+            if(checkedCharacter != '0'){
+                console.log("Adding Character");
+              const createArtist = await dataMapper.createCharacter(form)
+            }
+      
+            const characterId = await dataMapper.checkCharacterExist(form)
+            const character_id = {};
+            for(let i = 0; i<characterId.length; i++){
+                character_id['character_id_'+i] = characterId[i];
               }
-              const filtered_artistId = artist_id.artist_id_0
-              const param_artistId = filtered_artistId.id
-     const editArtist = await dataMapper.editArtist({refId, param_artistId})
+              const filtered_characterId = character_id.character_id_0
+              const param_characterId = filtered_characterId.id
+           const editCharacter = await dataMapper.editCharacter({param_characterId, refId})
+        }
+
+        if(form.artist){
+
+            const checkArtist = await dataMapper.checkArtistExist(form)
+            const checkedArtist = Object.keys(checkArtist)
+            if(checkedArtist != '0'){
+                console.log("Adding Artist");
+              const createArtist = await dataMapper.createArtist(form)
+            } 
+       
+            const artistId = await dataMapper.checkArtistExist(form)
+                     const artist_id = {};
+                     for(let i = 0; i<artistId.length; i++){
+                         artist_id['artist_id_'+i] = artistId[i];
+                     }
+                     const filtered_artistId = artist_id.artist_id_0
+                     const param_artistId = filtered_artistId.id
+            const editArtist = await dataMapper.editArtist({refId, param_artistId})
+        }
 
 
 
