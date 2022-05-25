@@ -30,7 +30,7 @@ router
     .get('/listcharacter', routerWrapper(listController.getByCharacter))
     .get('/listcharacter/:id/ref', routerWrapper(referenceController.getByCharacter))
     .get('/ref/:id', routerWrapper(referenceController.getById))
-    .delete('/ref/:id', security.check, routerWrapper(referenceController.deleteById)) //jwToken, security.check,
+    .delete('/ref/:id', routerWrapper(referenceController.deleteById)) //jwToken, security.check, 
     .get('/mostrecent', routerWrapper(referenceController.getByRecent))
     .get('/usertopfive', routerWrapper(userController.getTopFive))
     .get('/mostrated', routerWrapper(referenceController.getByNote))
@@ -40,9 +40,9 @@ router
     .delete('/user/delete/:id', routerWrapper(userController.deleteProfil)) //jwToken
     .get('/random', routerWrapper(referenceController.getByRandom))
     .get('/admin/dashboard', routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
-    .patch('/admin/dashboard/validating/:id', security.check, routerWrapper(adminController.validateRequest)) //jwToken, security.check,
-    .get('/admin/dashboard/editing/:id', security.check, routerWrapper(adminController.getEditForm)) //jwToken, security.check,
-    .patch('/admin/dashboard/editing/:id', security.check, routerWrapper(adminController.editFormRef)) //jwToken,
+    .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest)) //jwToken, security.check, security.check
+    .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm)) //jwToken, security.check, security.check
+    .patch('/admin/dashboard/editing/:id',  routerWrapper(adminController.editFormRef)) //jwToken, security.check
     //route Put  to validate reference request
     .use(handleError);
     
