@@ -47,16 +47,20 @@ const controller = {
     async editFormRef(req,res,next){
         const form = req.body
         console.log(form);
-        const ref = form.ref
-        const refId = req.params.id
-        const editRef = await dataMapper.editRef({ref, refId})
 
-        const checkShow = await dataMapper.checkShowExist(form)
-        const checkedShow = Object.keys(checkShow)
-        if(checkedShow != '0'){
-            console.log("Adding Show");
-          const createShow = await dataMapper.createShow(form)
-          }
+        if(form.ref){
+
+            const ref = form.ref
+            const refId = req.params.id
+            const editRef = await dataMapper.editRef({ref, refId})
+    
+            const checkShow = await dataMapper.checkShowExist(form)
+            const checkedShow = Object.keys(checkShow)
+            if(checkedShow != '0'){
+                console.log("Adding Show");
+              const createShow = await dataMapper.createShow(form)
+              }
+        }
 
 
           const showId = await dataMapper.checkShowExist(form)
