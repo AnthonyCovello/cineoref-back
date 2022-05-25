@@ -114,7 +114,7 @@ const datamapper = {
     
     async getUsers() {
       const query = {
-        text : `SELECT public.user.id, username, user.email, user.birthday, to_char(created_at, 'dd/mm/yyyy') AS created_date, role.name AS role, grade.name AS grade FROM "user"
+        text : `SELECT public.user.id, username, email, birthday, to_char(created_at, 'dd/mm/yyyy') AS created_date, role.name AS role, grade.name AS grade FROM "user"
         JOIN "grade"
         ON grade.id = public.user.grade_id
         JOIN "role"
