@@ -417,6 +417,7 @@ const datamapper = {
         text: `SELECT id FROM show WHERE name ='` + name + `' AND category ='`+ category +`';`
       };
       const checkShow = await client.query(query);
+      console.log(checkShow.rows);
       return checkShow.rows;
     },
 

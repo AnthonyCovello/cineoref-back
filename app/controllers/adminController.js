@@ -54,16 +54,16 @@ const controller = {
             const refId = req.params.id
             const editRef = await dataMapper.editRef({ref, refId})
     
+        }
+        
+        if(form.title){
+            
             const checkShow = await dataMapper.checkShowExist(form)
             const checkedShow = Object.keys(checkShow)
             if(checkedShow != '0'){
                 console.log("Adding Show");
               const createShow = await dataMapper.createShow(form)
               }
-        }
-
-        if(form.title){
-            
             const showId = await dataMapper.checkShowExist(form)
             const show_id = {};
             for(let i = 0; i<showId.length; i++){
