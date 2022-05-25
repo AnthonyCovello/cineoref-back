@@ -119,6 +119,7 @@ const datamapper = {
         ON grade.id = public.user.grade_id
         JOIN "role"
         ON role.id = public.user.role_id
+        ORDER BY public.user.username
         ;`
       }
       const result = await client.query(query);
