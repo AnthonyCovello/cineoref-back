@@ -123,7 +123,6 @@ const datamapper = {
         ;`
       }
       const result = await client.query(query);
-      console.log(result.rows);
       return result.rows
     },
 
@@ -467,7 +466,6 @@ const datamapper = {
 		    WHERE status = 'false'`
       }
       const result = await client.query(query);
-      console.log(result.rows);
       return result.rows
     },
 
