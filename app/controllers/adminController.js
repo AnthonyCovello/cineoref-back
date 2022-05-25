@@ -47,11 +47,11 @@ const controller = {
     async editFormRef(req,res,next){
         const form = req.body
         console.log(form);
+        const refId = req.params.id
 
         if(form.ref){
 
             const ref = form.ref
-            const refId = req.params.id
             const editRef = await dataMapper.editRef({ref, refId})
     
         }
