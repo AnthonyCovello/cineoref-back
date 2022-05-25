@@ -39,7 +39,7 @@ router
     .patch('/user/edit/',  routerWrapper(userController.editProfil)) //jwToken
     .delete('/user/delete/:id', routerWrapper(userController.deleteProfil)) //jwToken
     .get('/random', routerWrapper(referenceController.getByRandom))
-    .get('/admin/dashboard', security.check, routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
+    .get('/admin/dashboard', routerWrapper(adminController.getAdminDashboard)) //jwToken, security.check,
     .patch('/admin/dashboard/validating/:id', security.check, routerWrapper(adminController.validateRequest)) //jwToken, security.check,
     .get('/admin/dashboard/editing/:id', security.check, routerWrapper(adminController.getEditForm)) //jwToken, security.check,
     .patch('/admin/dashboard/editing/:id', security.check, routerWrapper(adminController.editFormRef)) //jwToken,
