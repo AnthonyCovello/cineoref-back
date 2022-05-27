@@ -311,11 +311,9 @@ const datamapper = {
   // --------------- CHARACTER ----------
 
     async createCharacter(character) {
-      const nameReg = character.character
-      const name = escapeRegExp(nameReg)
       const query = {
         text: `INSERT INTO "character" (name) VALUES ($1);`,
-        values: [name]
+        values: [character.character]
        };
        const newCharacter = await client.query(query);
         return newCharacter;
@@ -333,8 +331,7 @@ const datamapper = {
   },
 
   async checkCharacterExist(ref) {
-      const nameReg = ref.character
-      const name = escapeRegExp(nameReg)
+      const name = ref.character
       const query = {
         text: `SELECT id FROM character WHERE name ='` + name + `';`
       };
@@ -377,11 +374,9 @@ const datamapper = {
    // --------------- ARTIST ----------
 
     async createArtist(artist) {
-      const nameReg = artist.artist
-      const name = escapeRegExp(nameReg)
       const query = {
         text: `INSERT INTO "artist" (name) VALUES ($1);`,
-        values: [name]
+        values: [artist.artist]
        };
        const newArtist = await client.query(query);
         return newArtist;
@@ -398,8 +393,7 @@ const datamapper = {
   },
 
   async checkArtistExist(ref) {
-      const nameReg = ref.artist
-      const name = escapeRegExp(nameReg)
+      const name = ref.artist
       const query = {
         text: `SELECT id FROM artist WHERE name ='` + name + `';`
       };
@@ -444,13 +438,9 @@ const datamapper = {
 
    async createShow(show) {
      console.log(show);
-     const titleReg = show.title
-     const title = escapeRegExp(titleReg)
-     const categoryReg = show.category
-     const category = escapeRegExp(categoryReg)
       const query = {
         text: `INSERT INTO "show" (name, category) VALUES ($1, $2);`,
-        values: [title, category]
+        values: [show.title, show.category]
        };
        const newShow = await client.query(query);
         return newShow;
@@ -469,10 +459,8 @@ const datamapper = {
     },
 
     async checkShowExist(ref) {
-      const nameReg = ref.title
-      const name = escapeRegExp(nameReg)
-      const categoryReg = ref.category
-      const category = escapeRegExp(categoryReg)
+      const name = ref.title
+      const category = ref.category
       const query = {
         text: `SELECT id FROM show WHERE name ='` + name + `' AND category ='`+ category +`';`
       };
@@ -562,12 +550,10 @@ const datamapper = {
 
     async createRef(param) {
         console.log([param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]);
-        const referenceReg = param.reference
-        const reference = escapeRegExp(referenceReg)
         const query = {
           text : `INSERT INTO reference (ref, user_id, show_id, artist_id, character_id) 
           VALUES ($1, $2, $3, $4, $5);`,
-          values : [reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]          
+          values : [param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]          
         }
         const newRef = await client.query(query)
         return newRef
