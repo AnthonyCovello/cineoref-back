@@ -462,7 +462,8 @@ const datamapper = {
       const name = ref.title
       const category = ref.category
       const query = {
-        text: `SELECT id FROM show WHERE name ='` + name + `' AND category ='`+ category +`';`
+        text: `SELECT id FROM show WHERE name = $1 AND category = $2;`,
+        values: [name, category]
       };
       const checkShow = await client.query(query);
       console.log(checkShow.rows);
