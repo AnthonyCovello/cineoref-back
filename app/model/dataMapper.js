@@ -333,7 +333,8 @@ const datamapper = {
   async checkCharacterExist(ref) {
       const name = ref.character
       const query = {
-        text: `SELECT id FROM character WHERE name ='` + name + `';`
+        text: `SELECT id FROM character WHERE name = $1;`,
+        values:  [name]
       };
       const checkCharacter = await client.query(query);
       return checkCharacter.rows;
@@ -395,7 +396,8 @@ const datamapper = {
   async checkArtistExist(ref) {
       const name = ref.artist
       const query = {
-        text: `SELECT id FROM artist WHERE name ='` + name + `';`
+        text: `SELECT id FROM artist WHERE name = $1;`,
+        values: [name]
       };
       const checkArtist = await client.query(query);
       return checkArtist.rows;
