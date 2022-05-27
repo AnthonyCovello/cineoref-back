@@ -43,7 +43,8 @@ router
     .patch('/admin/dashboard/validating/:id', routerWrapper(adminController.validateRequest)) //jwToken, security.check, security.check
     .get('/admin/dashboard/editing/:id', routerWrapper(adminController.getEditForm)) //jwToken, security.check, security.check
     .patch('/admin/dashboard/editing/:id',  routerWrapper(adminController.editFormRef)) //jwToken, security.check
-    //route Put  to validate reference request
+    .delete('/admin/dashboard/delete/user/:id', routerWrapper(adminController.delUser))
+    .patch('/admin/dashboard/update/user/:id', routerWrapper(adminController.updateUser))
     .use(handleError);
     
 

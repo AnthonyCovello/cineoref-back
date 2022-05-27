@@ -259,6 +259,52 @@ const datamapper = {
       const result = await client.query(query)
       return result
     },
+
+    async editUser(userId, form){
+      console.log("datamapper");
+      console.log(userId);
+      console.log(form);
+      const query = {
+        text : `UPDATE public.user
+                    SET "role_id" =  $1,
+                             "grade_id" = $2
+                             where id = $3          
+                    `,
+        values : [form.role, form.grade, userId]
+      }
+      const result = await client.query(query)
+      return result
+    },
+
+    async editRole(userId, form){
+      console.log("datamapper");
+      console.log(userId);
+      console.log(form);
+      const query = {
+        text : `UPDATE public.user
+                    SET "role_id" =  $1
+                             where id = $2          
+                    `,
+        values : [form.role, userId]
+      }
+      const result = await client.query(query)
+      return result
+    },
+
+    async editGrade(userId, form){
+      console.log("datamapper");
+      console.log(userId);
+      console.log(form);
+      const query = {
+        text : `UPDATE public.user
+                    SET "grade_id" = $1
+                             where id = $2        
+                    `,
+        values : [form.grade, userId]
+      }
+      const result = await client.query(query)
+      return result
+    },
     
   // --------------- CHARACTER ----------
 

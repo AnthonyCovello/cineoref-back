@@ -120,6 +120,31 @@ const controller = {
           res.json({message : "Référence mis a jour !"})
     },
 
+    async delUser(req, res, next){
+        const id = req.params.id
+      const deleteProfil = await dataMapper.deleteProfil(id)
+      return res.status(200).json({deleteProfil, message : "Compte supprimé"})
+    },
+
+    async updateUser(req,res,next){
+        const user = req.body
+        console.log(user);
+        const userId = req.params.id
+        if (user.role && user.grade) {
+            console.log(("Edit role && grade"));
+            const editUser = await dataMapper.editUser(userId, user)
+        }
+        else if (user.role){
+            console.log("Edit role");
+            const editRole = await dataMapper.editRole(userId, user)
+        }
+        else if (user.grade){
+            console.log("Edit grade");
+            const editGrade = await dataMapper.editGrade(userId, user)
+        }
+        return res.status(200).json({ message : "Profile mis a jour"})
+    },
+
 
 
 };
