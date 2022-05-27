@@ -376,9 +376,11 @@ const datamapper = {
    // --------------- ARTIST ----------
 
     async createArtist(artist) {
+      const nameReg = artist.artist
+      const name = escapeRegExp(nameReg)
       const query = {
         text: `INSERT INTO "artist" (name) VALUES ($1);`,
-        values: [artist.artist]
+        values: [name]
        };
        const newArtist = await client.query(query);
         return newArtist;
@@ -559,10 +561,12 @@ const datamapper = {
 
     async createRef(param) {
         console.log([param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]);
+        const referenceReg = param.reference
+        const reference = escapeRegExp(referenceReg)
         const query = {
           text : `INSERT INTO reference (ref, user_id, show_id, artist_id, character_id) 
           VALUES ($1, $2, $3, $4, $5);`,
-          values : [param.reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]          
+          values : [reference, param.userId, param.param_showId, param.param_artistId, param.param_characterId]          
         }
         const newRef = await client.query(query)
         return newRef
