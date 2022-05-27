@@ -8,7 +8,7 @@ function escapeRegExp(param) {
        '<': '&lt;',
        '>': '&gt;',
        '"': '&quot;',
-       "'": "'';",
+       "'": '&#039;',
        "~": '&#126',
        "`": '&grave',
        "-": '&minus',
